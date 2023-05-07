@@ -1,9 +1,9 @@
 'use client';
-import DataTable from "@/app/DataTable";
+import DataTable from "@/app/components/DataTable";
 import {useEffect, useState} from "react";
 import {socket} from "@/app/socket";
 import {ConnectionManager} from "@/app/components/ConnectionManager";
-import {Box, LinearProgress, Skeleton, styled} from "@mui/material";
+import {Box, Container, LinearProgress, Paper, Skeleton, styled} from "@mui/material";
 
 interface SensorData {
     status: 'SUCCESS' | 'ERROR';
@@ -37,6 +37,7 @@ export default function Home() {
 
     useEffect(() => {
         function onConnect() {
+            setData([])
             setIsConnected(true);
         }
 
@@ -84,28 +85,24 @@ export default function Home() {
     }));
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-center w-full p-24">
-            <h1 className="text-4xl font-bold">Sonar<span className="text-blue-500">view</span></h1>
-
+        <Paper>
             <Div>{"Connection State: " + isConnected}</Div>
             <ConnectionManager isConnected={isConnected}/>
             <br/>
             <br/>
-            <LinearProgress variant="determinate" value={data.length - 1} style={{ width: '50%' }}/>
-            <div className={"w-1/2"}>
-                {data.length == 0 ?
-                    (<Box>
-                            <Skeleton animation="wave" height={50}/>
-                            <Skeleton animation="wave" height={50}/>
-                            <Skeleton animation="wave" height={50}/>
-                            <Skeleton animation="wave" height={50}/>
-                            <Skeleton animation="wave" height={50}/>
-                        </Box>
-                    ) : (
-                        <DataTable data={displayObject}/>
-                    )
-                }
-            </div>
-        </main>
+            <LinearProgress variant="determinate" value={data.length - 1} style={{width: '100%'}}/>
+            {data.length == 0 ?
+                (<Box>
+                        <Skeleton animation="wave" height={50}/>
+                        <Skeleton animation="wave" height={50}/>
+                        <Skeleton animation="wave" height={50}/>
+                        <Skeleton animation="wave" height={50}/>
+                        <Skeleton animation="wave" height={50}/>
+                    </Box>
+                ) : (
+                    <DataTable data={displayObject}/>
+                )
+            }
+        </Paper>
     )
 }
