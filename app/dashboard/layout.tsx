@@ -9,6 +9,7 @@ export default function DashboardLayout({
 
     const navItems = [
         {name: 'Dashboard', href: ' '},
+        {name: 'Sonar', href: 'sonar'},
         {name: 'Cron Jobs', href: 'cron'}
     ];
 
