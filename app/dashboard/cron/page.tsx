@@ -1,4 +1,5 @@
 import {ToggleSwitch} from "@/app/dashboard/(components)/ToggleSwitch";
+import Link from "next/link";
 
 export default async function CronPage() {
 
@@ -18,7 +19,8 @@ export default async function CronPage() {
                 {/* eslint-disable-next-line react/no-unescaped-entities */}
                 you've got a place to store files!</h1><p className="text-sm text-gray-600">Like, lots and lots of
                 files. So
-                many files!</p></div>
+                many files!</p>
+            </div>
             <div
                 className="flex flex-col rounded-lg h-96 border border-gray-200 w-full mt-4 gap-4 space-between divide-y divide-gray-200">
                 <div className="flex flex-row w-full px-6 pt-6 pb-2 gap-4 justify-between">
@@ -52,12 +54,12 @@ export default async function CronPage() {
                                 return (
                                     <tr key={job._id}>
                                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8 w-1/2">
-                                            <span className="flex grow">{job._id}</span>
+                                            <Link className="flex grow hover:underline" href={`/dashboard/cron/${job._id}`}>{job._id}</Link>
                                         </td>
                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 group flex gap-2 ">{job.dayOfWeek.join(", ")}</td>
                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{job.startTime} - {job.endTime}</td>
                                         <td className="flex relative whitespace-nowrap py-4 items-end text-sm font-medium gap-2">
-                                            <ToggleSwitch isActive={true} />
+                                            <ToggleSwitch isActive={job.isActive} id={job._id}/>
                                             <button type="button"
                                                     className="text-red-600 hover:text-red-900 p-1 focus:outline-red-500">Delete
                                             </button>
