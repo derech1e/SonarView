@@ -1,113 +1,85 @@
-import Image from 'next/image'
-
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+
+
+    return (
+        <div className={"h-screen w-screen"}>
+            <div className={"flex flex-col h-screen justify-between"}>
+                <div className="absolute top-0 left-0 h-full w-full overflow-hidden -z-10">
+                    <div
+                        className="absolute inset-x-0 transform-gpu overflow-hidden blur-3xl sm:-top-80 pointer-events-none"
+                        aria-hidden="true">
+                        <div
+                            className="relative left-[calc(50%)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-orange-400 to-red-800 opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem] shape"></div>
+                    </div>
+                    <div
+                        className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)] pointer-events-none"
+                        aria-hidden="true">
+                        <div
+                            className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-red-300 to-orange-800 opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem] shape"
+                        ></div>
+                    </div>
+                </div>
+                <header className="bg-white/35 w-full sticky top-0 z-50">
+                    <nav className="mx-auto flex max-w-7xl items-center justify-between gap-x-6 p-6 lg:px-8"
+                         aria-label="Global">
+                        <div className="flex lg:flex-1"><a className="flex flex-row items-baseline" href="/"><h1
+                            className="flex flex-row items-baseline text-2xl font-bold relative"><span
+                            className="sr-only">sonarview</span><span
+                            className="tracking-tight hover:cursor-pointer">sonar<span
+                            className="text-red-600">view</span></span><sup
+                            className="absolute top-0 left-[calc(100%+.1rem)] text-xs font-bold text-black">[BETA]</sup>
+                        </h1>
+                        </a></div>
+                        <div className="hidden lg:flex lg:gap-x-12"></div>
+                        <div className="flex flex-1 items-center justify-end gap-x-6">
+                            <div className="flex gap-4 items-center"><a
+                                className="rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                                href="/sign-in">Sign In </a></div>
+                        </div>
+                    </nav>
+                </header>
+                <div className="mb-auto">
+                    <div className="relative isolate px-6 pt-14 lg:px-8">
+                        <div className="mx-auto max-w-2xl sm:py-48 lg:py-56">
+                            <div className="text-center"><h1
+                                className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Uploads made
+                                easy</h1><p
+                                className="mt-6 text-lg leading-8 text-gray-600">Think "S3 for the rest of us".
+                                Just <code
+                                    className="font-bold">npm install</code> and you're good to go.</p>
+                                <div className="mt-10 flex items-center justify-center gap-x-6"><a
+                                    className="rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                                    href="/sign-in">Get started</a><a
+                                    className="text-sm font-semibold leading-6 text-gray-900"
+                                    href="https://docs.uploadthing.com">Learn more <span
+                                    aria-hidden="true">→</span></a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer className="bg-gray-900 w-full bottom-0" aria-labelledby="footer-heading"><h2 id="footer-heading"
+                                                                                                     className="sr-only">Footer</h2>
+                    <div className="mx-auto max-w-7xl px-6 pb-8 lg:px-8">
+                        <div className="border-white/10 pt-8 md:flex md:items-center md:justify-between">
+                            <div className="flex space-x-6 md:order-2">
+                                <a href="https://docs.uploadthing.com"
+                                   className="text-gray-500 hover:text-gray-400 flex flex-row items-center gap-2"><span>Docs</span>
+                                </a><a href="https://twitter.com/t3dotgg" className="text-gray-500 hover:text-gray-400"><span
+                                className="sr-only">Twitter</span>
+                            </a><a href="https://github.com/pingdotgg"
+                                   className="text-gray-500 hover:text-gray-400"><span
+                                className="sr-only">GitHub</span>
+                            </a><a href="https://discord.gg/AtC7hsyw"
+                                   className="text-gray-500 hover:text-gray-400"><span
+                                className="sr-only">Discord</span>
+                            </a></div>
+                            <p className="mt-8 text-xs leading-5 text-gray-400 md:order-1 md:mt-0">© 2023
+                                Nuerk-Solutions.
+                                All rights
+                                reserved.</p></div>
+                    </div>
+                </footer>
+            </div>
         </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    )
 }
