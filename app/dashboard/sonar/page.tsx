@@ -1,8 +1,8 @@
 "use client";
-import {SmallBox} from "@/app/dashboard/(components)/SmallBox";
-import {MediumBox} from "@/app/dashboard/(components)/MediumBox";
+import {SmallBox} from "@/components/SmallBox";
+import {MediumBox} from "@/components/MediumBox";
 import {useEffect, useState} from "react";
-import {socket} from "@/app/socket";
+import {sonarSocket} from "@/app/socket";
 
 interface SensorData {
     status: 'SUCCESS' | 'ERROR';
@@ -18,7 +18,7 @@ interface SensorData {
 export default function SonarPage() {
 
 
-    const [isConnected, setIsConnected] = useState(socket.connected);
+    const [isConnected, setIsConnected] = useState(sonarSocket.connected);
     const [data, setData] = useState<SensorData[]>([]);
 
     useEffect(() => {
@@ -35,14 +35,14 @@ export default function SonarPage() {
             setData((prevData) => [...prevData, newData]);
         }
 
-        socket.on('connect', onConnect);
-        socket.on('disconnect', onDisconnect);
-        socket.on('distance', onSensorDataEvent);
+        sonarSocket.on('connect', onConnect);
+        sonarSocket.on('disconnect', onDisconnect);
+        sonarSocket.on('distance', onSensorDataEvent);
 
         return () => {
-            socket.off('connect', onConnect);
-            socket.off('disconnect', onDisconnect);
-            socket.off('distance', onSensorDataEvent);
+            sonarSocket.off('connect', onConnect);
+            sonarSocket.off('disconnect', onDisconnect);
+            sonarSocket.off('distance', onSensorDataEvent);
         };
     });
 
@@ -50,7 +50,7 @@ export default function SonarPage() {
         if (data.length === 0) return;
 
         if (data.length > 99) {
-            socket.disconnect();
+            sonarSocket.disconnect();
             return;
         }
     }, [data]);
@@ -67,7 +67,7 @@ export default function SonarPage() {
                 setData([]);
                 setIsConnected(true);
                 await setTimeout(() => {
-                    socket.connect();
+                    sonarSocket.connect();
                 }, 1000);
             }}>Execute
             </button>
@@ -76,7 +76,7 @@ export default function SonarPage() {
                            value={isConnected ? "Connected" : "Disconnected"}/>
                 <MediumBox heading={"Execution Count"} subheading={"till 100"} value={data.length}/>
             </div>
-            <div className={"flex flex-row w-full mt-4 gap-4 space-between"}>
+            <div className={"md:flex md:flex-row grid grid-cols-2 w-full mt-4 gap-4 space-between"}>
                 <SmallBox heading={"Datetime"} subheading={"100ms"}
                           value={new Date(data[data.length - 1]?.datetime).toJSON()?.slice(11, 23) ?? 'NaN'}/>
                 <SmallBox heading={"Trigger Tick"} subheading={"Sensor to Surface"}

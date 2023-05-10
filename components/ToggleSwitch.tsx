@@ -1,23 +1,27 @@
 "use client"
 import {useState} from "react";
 import {Switch} from "@headlessui/react";
+import {useRouter} from "next/navigation";
 
 
 export function ToggleSwitch({isActive, id}) {
     const [enabled, setEnabled] = useState(isActive)
+    const router = useRouter();
 
     return (
         <Switch
             checked={enabled}
             onChange={newState => {
-                fetch(`http://pi.de:3000/scheduler/jobs/${id}`, {
+                fetch(`/api/cron?id=${id}`, {
                     method: "PATCH",
                     body: JSON.stringify({
                         isActive: newState
                     }),
                 }).then(r => {
-                    if (r.ok)
+                    if (r.ok) {
                         setEnabled(newState)
+                        router.refresh();
+                    }
                 });
             }}
             className={`${

@@ -7,6 +7,7 @@ export function InputField({id, label, required, value, type, ...props}: { id: s
                 {required && <span className="text-red-500">*</span>}
             </label>
             <input id={id}
+                   required={required}
                    className="shadow-sm focus:ring-red-500 px-4 py-2 focus:outline-red-500 block w-full sm:text-sm border border-gray-200 rounded-md accent-red-600"
                    type={type} value={value} name={id} {...props} />
         </div>

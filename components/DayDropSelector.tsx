@@ -12,12 +12,17 @@ export const weekDays = [
     {id: 7, name: "Sunday"},
 ];
 
-export function DayDropSelector({selectedDays}) {
+export function DayDropSelector({selectedDays, dayNames}) {
     const [selectedWeekDays, setSelectedWeekDays] = useState<[{ id: number, name: string }?]>(selectedDays ?? []);
 
     return (
         // <div className={"w-1"}>
-            <Listbox value={selectedWeekDays} onChange={setSelectedWeekDays} multiple>
+            <Listbox value={selectedWeekDays} onChange={(event) => {
+                setSelectedWeekDays(event)
+                // console.log(event.map(day => day?.name));
+                dayNames(event.map(day => day?.name));
+                // onChange(event)
+            } } multiple name={"createJobForm"}>
                 <div className="relative">
                     <Listbox.Button
                         className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-md shadow-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 border border-gray-200 sm:text-sm">

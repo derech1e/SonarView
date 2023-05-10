@@ -2,8 +2,8 @@ export default function Home() {
 
 
     return (
-        <div className={"h-screen w-screen"}>
-            <div className={"flex flex-col h-screen justify-between"}>
+        <div className={"h-screen"}>
+            <div className={"flex flex-col h-full justify-between"}>
                 <div className="absolute top-0 left-0 h-full w-full overflow-hidden -z-10">
                     <div
                         className="absolute inset-x-0 transform-gpu overflow-hidden blur-3xl sm:-top-80 pointer-events-none"
@@ -49,7 +49,7 @@ export default function Home() {
                                     className="font-bold">npm install</code> and you're good to go.</p>
                                 <div className="mt-10 flex items-center justify-center gap-x-6"><a
                                     className="rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
-                                    href="/sign-in">Get started</a><a
+                                    href="/dashboard">Get started</a><a
                                     className="text-sm font-semibold leading-6 text-gray-900"
                                     href="https://docs.uploadthing.com">Learn more <span
                                     aria-hidden="true">→</span></a></div>

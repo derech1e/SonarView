@@ -14,7 +14,7 @@ export function Navigation({navLinks}) {
 
                 return (
                     <Link
-                        className={isActive ? 'flex flex-row items-center gap-2 px-4 py-1.5 text-sm font-medium focus:outline-red-500 rounded-md bg-gray-300 text-black' : 'flex flex-row items-center gap-2 px-4 py-1.5 text-sm font-medium focus:outline-red-500 text-gray-500'}
+                        className={isActive ? 'flex flex-row items-center gap-2 px-4 py-1.5 text-sm font-medium focus:outline-red-500 rounded-md bg-gray-300 text-black' : 'flex flex-row items-center gap-2 px-4 py-1.5 text-sm font-medium focus:outline-red-500 text-gray-500 hover:rounded-md hover:bg-gray-300 hover:transition-colors hover:duration-300 hover:ease-in-out'}
                         href={`/dashboard/${link.href}`}
                         key={link.name}
                     >
