@@ -1361,6 +1361,11 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
+html-duration-picker@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/html-duration-picker/-/html-duration-picker-2.4.0.tgz#8dcbccec951807a57c82193936ffe9190cf12bcb"
+  integrity sha512-zdwpzShjpvXdixDjZil4R9lMwb2NgVnw9imSn15JxReacRiGoFIAyugFXlbW0jJ9wIQfmVhw6Xl6RsvTLJoOuQ==
+
 human-signals@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-2.1.0.tgz#dc91fcba42e4d06e4abaed33b3e7a3c02f514ea0"

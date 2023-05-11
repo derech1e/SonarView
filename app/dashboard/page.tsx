@@ -19,8 +19,10 @@ export default async function DashboardPage() {
 
     return (
         <div>
-            <div className="flex flex-col text-start w-full gap-2"><h1 className="font-medium text-xl">Overview</h1><p
-                className="text-sm text-gray-600">View and manage the Cistern!</p></div>
+            <div className="flex flex-col text-start w-full gap-2">
+                <h1 className="font-medium text-xl">Overview</h1>
+                <p className="text-sm text-gray-600">View and manage the Cistern!</p>
+            </div>
             <div className="flex flex-col w-full gap-2 p-4 bg-gray-100 rounded-lg mt-6">
                 <div className="flex flex-row items-center justify-between">
                     <div className="flex flex-col text-start w-full gap-2">
