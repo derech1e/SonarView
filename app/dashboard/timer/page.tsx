@@ -38,6 +38,7 @@ export default function Timer() {
         function onTimerEvent(newData) {
             if (newData === 'Timer stopped.') {
                 setIsPlaying(false)
+                setInitialRemainingTime(undefined);
                 // setDuration(0);
                 return
             }
@@ -132,8 +133,8 @@ export default function Timer() {
                             isSmoothColorTransition={true}
                             size={300}
                             onComplete={() => {
-                                setIsPlaying(false)
-                                return {shouldRepeat: false, newInitialRemainingTime: initialRemainingTime, delay: 2};
+                                // setIsPlaying(false)
+                                return {shouldRepeat: false};
                             }}
                         >
                             {({remainingTime}) => <span className={"text-3xl font-medium"}>{children({remainingTime})}</span>}
