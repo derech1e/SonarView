@@ -9,6 +9,7 @@ export const navItems = [
     {name: 'Sonar', href: 'sonar'},
     {name: 'Cron Jobs', href: 'cron'},
     {name: 'Timer', href: 'timer'},
+    {name: 'Settings', href: 'settings'},
 ];
 
 

@@ -1,7 +1,6 @@
-import Link from "next/link";
 import {Navigation} from "@/components/NavigationLinks";
 import {DashboardHeader, navItems} from "@/components/DashboardHeader";
-
+import SettingsContext, {SiteContextProvider} from "@/components/Context";
 
 export default function DashboardLayout({
                                             children,
@@ -10,7 +9,7 @@ export default function DashboardLayout({
 }) {
 
     return (
-        <div>
+        <SiteContextProvider>
             <div className={"h-full w-full"}>
                 <DashboardHeader />
                 <div className="h-px bg-gray-200"></div>
@@ -26,7 +25,7 @@ export default function DashboardLayout({
                 </div>
                 </div>
             </div>
-        </div>
+        </SiteContextProvider>
     );
 
 }

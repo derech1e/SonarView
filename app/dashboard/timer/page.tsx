@@ -37,9 +37,7 @@ export default function Timer() {
 
         function onTimerEvent(newData) {
             if (newData === 'Timer stopped.') {
-                setIsPlaying(false)
-                setInitialRemainingTime(undefined);
-                // setDuration(0);
+                handleTimerStop();
                 return
             }
             if (!isPlaying) {
