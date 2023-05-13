@@ -3,6 +3,7 @@ import {SmallBox} from "@/components/SmallBox";
 import {MediumBox} from "@/components/MediumBox";
 import {useEffect, useState} from "react";
 import {sonarSocket} from "@/app/socket";
+import {useSettingsContext} from "@/components/Context";
 
 interface SensorData {
     status: 'SUCCESS' | 'ERROR';
@@ -17,9 +18,22 @@ interface SensorData {
 
 export default function SonarPage() {
 
-
+    const {settings} = useSettingsContext();
     const [isConnected, setIsConnected] = useState(sonarSocket.connected);
     const [data, setData] = useState<SensorData[]>([]);
+
+    const getMaxVolumeLiter = () => {
+        const maxDistance = settings.heightAboveGround - settings.minWaterHeight - settings.maxWaterHeight;
+
+        return Number((maxDistance * Math.PI * Math.pow(settings.radius, 2)) / 1000).toFixed(2);
+    }
+
+    const getVolumeLiter = (distance: number, returnMax: boolean = false) => {
+        let realDistance = settings.heightAboveGround - settings.minWaterHeight - settings.maxWaterHeight - (distance - settings.maxWaterHeight);
+
+        return Number((realDistance * Math.PI * Math.pow(settings.radius, 2)) / 1000).toFixed(2)
+
+    }
 
     useEffect(() => {
         function onConnect() {
@@ -59,8 +73,8 @@ export default function SonarPage() {
         <div className={"flex flex-col items-center justify-center w-full"}>
             <div className="flex flex-col text-start w-full gap-2"><h1 className="font-medium text-xl">🎉
                 Sonar measurements are being taken</h1><p className="text-sm text-gray-600">Like, lots and lots of
-                files. So
-                many files!</p></div>
+                data. So
+                many data!</p></div>
             <button
                 className="p-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-red-500 self-start mt-2 disabled:bg-red-300"
                 disabled={isConnected} onClick={async (event) => {
@@ -89,21 +103,11 @@ export default function SonarPage() {
             <div className={"flex flex-row w-full mt-4 gap-4 space-between"}>
                 <MediumBox heading={"Distance"} subheading={"in cm"}
                            value={Number(data.reduce((acc, curr) => (acc ?? 0) + (curr.distance ?? 0), 0) / data.length).toFixed(2)}/>
-                <MediumBox heading={"Volume"} subheading={"in L"}
-                           value={getVolumeLiter((data.reduce((acc, curr) => (acc ?? 0) + (curr.distance ?? 0), 0) / data.length)) }/>
+                <SmallBox heading={"Volume"} subheading={"in L"}
+                           value={getVolumeLiter((data.reduce((acc, curr) => (acc ?? 0) + (curr.distance ?? 0), 0) / data.length))}/>
+                <SmallBox heading={"Max Volume"} subheading={"in L"}
+                          value={getMaxVolumeLiter()}/>
             </div>
         </div>
     );
-}
-
-const getVolumeLiter = (distance: number) => {
-    let radius = 100;
-    let sensorToMax = 63.13;
-    let sensorToMin = 236;
-    let stopDistance = 3;
-
-    let realDistance = sensorToMin - stopDistance - sensorToMax - (distance - sensorToMax);
-
-    return Number((realDistance * Math.PI * Math.pow(radius, 2)) / 1000).toFixed(2)
-
 }

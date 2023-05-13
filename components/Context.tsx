@@ -1,33 +1,50 @@
 "use client";
-import React, {useState} from 'react';
+import React, {createContext, useContext, useEffect, useState} from 'react';
 
-interface SettingsInterface {
-    diameter: number;
+export interface SettingsInterface {
+    radius: number;
     heightAboveGround: number;
     maxWaterHeight: number;
     minWaterHeight: number;
 }
 
-const SiteContext = React.createContext<{
-    diameter: number;
-    heightAboveGround: number;
-    maxWaterHeight: number;
-    minWaterHeight: number;
-}>({
-    diameter: 1,
-    heightAboveGround: 0,
-    maxWaterHeight: 0,
-    minWaterHeight: 1,
+interface SettingsContextType {
+    settings: SettingsInterface;
+    setSettings: React.Dispatch<React.SetStateAction<SettingsInterface>>;
+}
+
+export const defaultSettings: SettingsInterface = {
+    radius: 100,
+    heightAboveGround: 236,
+    maxWaterHeight: 63.13,
+    minWaterHeight: 3,
+}
+
+export const SettingsContext = createContext<SettingsContextType>({
+    settings: defaultSettings,
+    setSettings: () => {
+    },
 });
 
-export function SiteContextProvider ({ children })  {
-    const [settings, setSettings] = useState<SettingsInterface>({diameter: 1, heightAboveGround: 0, maxWaterHeight: 0, minWaterHeight: 1});
+export const SettingsContextProvider = ({children}) => {
+    const [settings, setSettings] = useState(() => {
+        const storedSettings = localStorage.getItem('settings');
+        return storedSettings ? JSON.parse(storedSettings) : defaultSettings;
+    });
+
+    const updateSettings: SettingsContextType['setSettings'] = (newSettings) => {
+        setSettings(newSettings);
+    };
+
+    useEffect(() => {
+        localStorage.setItem('settings', JSON.stringify(settings));
+    }, [settings]);
 
     return (
-        <SiteContext.Provider value={{ diameter: settings.diameter, heightAboveGround: settings.heightAboveGround, maxWaterHeight: settings.maxWaterHeight, minWaterHeight: settings.minWaterHeight }}>
+        <SettingsContext.Provider value={{settings, setSettings: updateSettings}}>
             {children}
-        </SiteContext.Provider>
-    );
-};
+        </SettingsContext.Provider>
+    )
+}
 
-export default SiteContext;
+export const useSettingsContext = () => useContext(SettingsContext);

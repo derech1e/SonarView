@@ -1,6 +1,7 @@
 import {Navigation} from "@/components/NavigationLinks";
 import {DashboardHeader, navItems} from "@/components/DashboardHeader";
-import SettingsContext, {SiteContextProvider} from "@/components/Context";
+import {SettingsContextProvider} from "@/components/Context";
+
 
 export default function DashboardLayout({
                                             children,
@@ -9,9 +10,9 @@ export default function DashboardLayout({
 }) {
 
     return (
-        <SiteContextProvider>
+        <SettingsContextProvider>
             <div className={"h-full w-full"}>
-                <DashboardHeader />
+                <DashboardHeader/>
                 <div className="h-px bg-gray-200"></div>
                 <div className="mx-auto flex max-w-7xl flex-col bg-white py-6 text-black md:flex-row">
                     <div className={"order-first flex-none md:w-1/6 "}>
@@ -20,12 +21,12 @@ export default function DashboardLayout({
                         </div>
                     </div>
 
-                <div className={"order-last min-h-screen w-full md:order-none md:ml-16 p-6"}>
-                    {children}
-                </div>
+                    <div className={"order-last min-h-screen w-full md:order-none md:ml-16 p-6"}>
+                        {children}
+                    </div>
                 </div>
             </div>
-        </SiteContextProvider>
+        </SettingsContextProvider>
     );
 
 }
