@@ -11,6 +11,7 @@ export default function Settings() {
     const [changes, setChanges] = useState<SettingsInterface>({...settings});
 
     function onChangeHandler(event: ChangeEvent<HTMLInputElement>) {
+        console.log(changes)
         const updatedChanges = {...changes};
         const {id, value} = event.target;
 
@@ -31,11 +32,11 @@ export default function Settings() {
 
 
     return (
-        <div className="order-last min-h-screen w-full md:order-none ml-16 p-6">
+        <div className="order-last min-h-screen w-full md:order-none p-6 dark:text-white">
             <div className="flex flex-col items-center justify-center w-full">
                 <div className="flex flex-col text-start w-full gap-2">
                     <h1 className="font-medium text-xl">Sensor measure Settings</h1>
-                    <p className="text-sm text-gray-600">Configure the settings for this application</p>
+                    <p className="text-sm text-gray-600 dark:text-dark-text">Configure the settings for this application</p>
                 </div>
                 <div className="flex flex-col w-full mt-4 gap-4 space-between">
                     <InputField id={"radius"} label={"Radius (cm)"} required={true} type={"number"}
@@ -60,11 +61,11 @@ export default function Settings() {
                     </div>
                 </div>
                 <div className="flex flex-col text-start w-full gap-2 pt-8"><h1 className="font-medium text-xl">Danger
-                    Zone</h1><p className="text-sm text-gray-600">The following actions are destructive and cannot be
+                    Zone</h1><p className="text-sm text-gray-600 dark:text-dark-text">The following actions are destructive and cannot be
                     reversed.</p></div>
                 <div className="flex flex-col w-full mt-4 gap-4 items-start">
                     <button
-                        className="inline-flex items-center mt-6 px-4 py-2  border-2 border-red-600 text-sm font-medium rounded-md shadow-sm text-red-800 bg-transparent hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 hover:text-white"
+                        className="inline-flex items-center mt-6 px-4 py-2  border-2 border-red-600 text-sm font-medium rounded-md shadow-sm text-red-800 bg-transparent hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 hover:text-white dark:hover:text-white dark:text-dark-text"
                         onClick={() => {
                             if (confirm("Do you really want to reset the settings? This action cannot be undone.")) {
                                 setSettings(defaultSettings);

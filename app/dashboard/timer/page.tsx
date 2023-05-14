@@ -12,7 +12,7 @@ const children = ({remainingTime}) => {
     return `${remainingDate?.toISOString().substring(14, 19)}`
 }
 
-const outlinedClassName = "border-2 border-red-600 shadow-sm text-red-800 bg-transparent hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 hover:text-white"
+const outlinedClassName = "border-2 border-red-600 shadow-sm text-red-800 dark:text-red-400 bg-transparent hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 hover:text-white dark:hover:text-white"
 const filledClassName = "text-white bg-red-600 hover:bg-red-700 focus:outline-red-500"
 
 export default function Timer() {
@@ -74,15 +74,15 @@ export default function Timer() {
     return (
         <div className={"flex flex-col w-full"}>
             <div className="flex flex-col text-start w-full gap-2">
-                <h1 className="font-medium text-xl">Overview</h1>
-                <p className="text-sm text-gray-600">View and manage the Cistern!{isConnected}</p>
+                <h1 className="font-medium text-xl dark:text-white">Overview</h1>
+                <p className="text-sm text-gray-600 dark:text-dark-text">View and manage the Cistern!{isConnected}</p>
             </div>
 
-            <div className="flex flex-col w-full gap-2 p-4 bg-gray-100 rounded-lg mt-6">
+            <div className="flex flex-col w-full gap-2 p-4 bg-gray-100 rounded-lg mt-6 dark:bg-dark-accent">
                 <div className="flex flex-row items-center justify-between">
                     <div className="flex flex-col text-start w-full gap-2">
-                        <h1 className="font-medium text-xl">Timer Control</h1>
-                        <p className="text-sm text-gray-600">Start and Stop the timer for the cistern</p>
+                        <h1 className="font-medium text-xl dark:text-white">Timer Control</h1>
+                        <p className="text-sm text-gray-600 dark:text-dark-text">Start and Stop the timer for the cistern</p>
                     </div>
                     <div className={"inline-flex gap-2"}>
                         <button
@@ -102,13 +102,13 @@ export default function Timer() {
             </div>
             {isPlaying ? (
                 <div className="flex flex-col text-start w-full gap-2 mt-6 mb-4">
-                    <h1 className="font-medium text-xl">Duration</h1>
-                    <p className="text-sm text-gray-600">The current left time until the timer stops</p>
+                    <h1 className="font-medium text-xl dark:text-white">Duration</h1>
+                    <p className="text-sm text-gray-600 dark:text-dark-text">The current left time until the timer stops</p>
                 </div>
             ) : (
                 <div className="flex flex-col text-start w-full gap-2 mt-6">
-                    <h1 className="font-medium text-xl">Duration</h1>
-                    <p className="text-sm text-gray-600">Pick a duration for the timer that is used when pressing the
+                    <h1 className="font-medium text-xl dark:text-white">Duration</h1>
+                    <p className="text-sm text-gray-600 dark:text-dark-text">Pick a duration for the timer that is used when pressing the
                         start
                         button</p>
                 </div>

@@ -28,7 +28,7 @@ export default function SonarPage() {
         return Number((maxDistance * Math.PI * Math.pow(settings.radius, 2)) / 1000).toFixed(2);
     }
 
-    const getVolumeLiter = (distance: number, returnMax: boolean = false) => {
+    const getVolumeLiter = (distance: number) => {
         let realDistance = settings.heightAboveGround - settings.minWaterHeight - settings.maxWaterHeight - (distance - settings.maxWaterHeight);
 
         return Number((realDistance * Math.PI * Math.pow(settings.radius, 2)) / 1000).toFixed(2)
@@ -71,8 +71,8 @@ export default function SonarPage() {
 
     return (
         <div className={"flex flex-col items-center justify-center w-full"}>
-            <div className="flex flex-col text-start w-full gap-2"><h1 className="font-medium text-xl">🎉
-                Sonar measurements are being taken</h1><p className="text-sm text-gray-600">Like, lots and lots of
+            <div className="flex flex-col text-start w-full gap-2"><h1 className="font-medium text-xl dark:text-white">🎉
+                Sonar measurements are being taken</h1><p className="text-sm text-gray-600 dark:text-dark-text">Like, lots and lots of
                 data. So
                 many data!</p></div>
             <button

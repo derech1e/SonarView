@@ -54,7 +54,7 @@ export function DurationRadioGroup({selectedDuration, setSelectedDuration}) {
                                             : ''
                                     }
                   ${
-                                        checked ? 'bg-red-700 bg-opacity-90 text-white' : 'bg-white'
+                                        checked ? 'bg-red-700 bg-opacity-90 text-white' : 'bg-white dark:bg-gray-400'
                                     }
                     relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none`
                                 }

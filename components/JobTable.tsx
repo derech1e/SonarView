@@ -11,19 +11,19 @@ export function JobTable({initialData}) {
     const router = useRouter();
 
     return (
-        <div>
+        <div className={"dark:text-white"}>
             <div className="flex flex-row w-full gap-4 space-between overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-300 overflow-y-auto">
                     <thead>
                     <tr>
                         <th scope="col"
-                            className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 lg:pl-8">ID
+                            className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-dark-text sm:pl-6 lg:pl-8">ID
                         </th>
                         <th scope="col"
-                            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Weekdays
+                            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-dark-text">Weekdays
                         </th>
                         <th scope="col"
-                            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Timespan
+                            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-dark-text">Timespan
                         </th>
                         <th scope="col" className="relative"><span className="sr-only">Roll / Delete</span></th>
                     </tr>
@@ -70,7 +70,7 @@ export function JobTable({initialData}) {
             {data.length == 0 &&
                 <div className="flex flex-col items-center justify-center w-full py-24 border-t"><h1
                     className="font-medium text-xl">No cron jobs exists yet</h1>
-                    <p className="text-sm text-gray-600">Create a new job to get started!</p>
+                    <p className="text-sm text-gray-600 dark:text-dark-text">Create a new job to get started!</p>
                 </div>
             }
         </div>

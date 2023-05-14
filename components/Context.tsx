@@ -20,6 +20,16 @@ export const defaultSettings: SettingsInterface = {
     minWaterHeight: 3,
 }
 
+const getSettingsFromCookies = () => {
+    const cookieString = document.cookie.split(';').find(cookie => cookie.startsWith('settings='));
+    return cookieString ? JSON.parse(cookieString.split('=')[1]) : defaultSettings;
+};
+
+
+const setSettingsToCookies = (settings) => {
+    document.cookie = `settings=${JSON.stringify(settings)}; path=/; max-age=${60 * 60 * 24 * 30}`;
+};
+
 export const SettingsContext = createContext<SettingsContextType>({
     settings: defaultSettings,
     setSettings: () => {
@@ -27,24 +37,21 @@ export const SettingsContext = createContext<SettingsContextType>({
 });
 
 export const SettingsContextProvider = ({children}) => {
-    const [settings, setSettings] = useState(() => {
-        const storedSettings = localStorage.getItem('settings');
-        return storedSettings ? JSON.parse(storedSettings) : defaultSettings;
-    });
-
+    const [settings, setSettings] = useState(getSettingsFromCookies());
     const updateSettings: SettingsContextType['setSettings'] = (newSettings) => {
         setSettings(newSettings);
     };
 
     useEffect(() => {
-        localStorage.setItem('settings', JSON.stringify(settings));
+        // setSettings(newSettings);
+        setSettingsToCookies(settings);
     }, [settings]);
 
     return (
         <SettingsContext.Provider value={{settings, setSettings: updateSettings}}>
             {children}
         </SettingsContext.Provider>
-    )
+    );
 }
 
 export const useSettingsContext = () => useContext(SettingsContext);

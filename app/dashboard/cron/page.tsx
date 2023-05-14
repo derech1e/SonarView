@@ -18,8 +18,9 @@ export default async function CronPage() {
             <div
                 className="flex flex-col rounded-lg h-96 border border-gray-200 w-full mt-4 gap-4 space-between divide-y divide-gray-200">
                 <div className="flex flex-row w-full px-6 pt-6 pb-2 gap-4 justify-between">
-                    <div className="flex flex-col"><h2 className="font-medium text-lg">All jobs</h2><p
-                        className="text-sm text-gray-600">These jobs based on their configuration</p>
+                    <div className="flex flex-col">
+                        <h2 className="font-medium text-lg dark:text-white">All jobs</h2>
+                        <p className="text-sm text-gray-600 dark:text-dark-text">These jobs based on their configuration</p>
                     </div>
                     <Link href="/dashboard/cron/new"
                           className="flex h-8 whitespace-nowrap items-center justify-center p-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-red-500">Create

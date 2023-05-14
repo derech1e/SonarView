@@ -19,8 +19,8 @@ export default function CronJobHeader() {
 
     return (
         <div className="flex flex-col text-start w-full gap-2">
-            <h1 className="font-medium text-xl">🎉 Cron Job Manager</h1>
-            <p className="text-sm text-gray-600">{getCronSubTitle(segment)}</p>
+            <h1 className="font-medium text-xl dark:text-white">🎉 Cron Job Manager</h1>
+            <p className="text-sm text-gray-600 dark:text-dark-text">{getCronSubTitle(segment)}</p>
         </div>
     );
 }

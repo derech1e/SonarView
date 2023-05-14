@@ -6,11 +6,19 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --background: #000000;
+  --foreground: green;
+}
+
+
+[data-theme='dark'] {
+  --background: #6b1111;
+  --foreground: white;
 }
 
 /*@media (prefers-color-scheme: dark) {*/
 /*  :root {*/
-/*    --foreground-rgb: 255, 255, 255;*/
+/*    --foreground-rgb: 255SA, 255, 255;*/
 /*    --background-start-rgb: 0, 0, 0;*/
 /*    --background-end-rgb: 0, 0, 0;*/
 /*  }*/
