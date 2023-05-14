@@ -101,12 +101,14 @@ export default function SonarPage() {
                           value={data[data.length - 1]?.sensor.diff ?? 'NaN'}/>
             </div>
             <div className={"flex flex-row w-full mt-4 gap-4 space-between"}>
-                <MediumBox heading={"Distance"} subheading={"in cm"}
+                <SmallBox heading={"Distance"} subheading={"in cm"}
                            value={Number(data.reduce((acc, curr) => (acc ?? 0) + (curr.distance ?? 0), 0) / data.length).toFixed(2)}/>
                 <SmallBox heading={"Volume"} subheading={"in L"}
                            value={getVolumeLiter((data.reduce((acc, curr) => (acc ?? 0) + (curr.distance ?? 0), 0) / data.length))}/>
                 <SmallBox heading={"Max Volume"} subheading={"in L"}
                           value={getMaxVolumeLiter()}/>
+                <SmallBox heading={"Percentage"} subheading={"in %"}
+                          value={Number(100 / +getMaxVolumeLiter() * +getVolumeLiter((data.reduce((acc, curr) => (acc ?? 0) + (curr.distance ?? 0), 0) / data.length))).toFixed(2)}/>
             </div>
         </div>
     );
