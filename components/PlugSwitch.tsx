@@ -13,7 +13,7 @@ export function PlugSwitch({defaultState}) {
         await fetch("/api/plug", {
             method: "PATCH",
             body: JSON.stringify({
-                POWER1: false,
+                POWER1: newState,
             }),
         }).then((res) => {
             if (res.status === 200) {

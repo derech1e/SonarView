@@ -3,7 +3,7 @@ import {Suspense} from "react";
 import {LoadingComponent} from "@/components/LoadingComponent";
 import {PlugSwitch} from "@/components/PlugSwitch";
 
-interface SensorData {
+export interface SensorData {
     datetime: Date;
     distance: number;
 }
@@ -161,6 +161,7 @@ function reduceSensorData(data: SensorData[], windowSize: number): SensorData[] 
     return reducedData;
 }
 
+
 async function getPlugStatus() {
     'use server';
     new Promise(resolve => setTimeout(resolve, 15000));
@@ -196,17 +197,6 @@ async function getMeasurementData() {
 
 }
 
-async function handleChange(newState) {
-    await fetch("/api/plug", {
-        method: "PATCH",
-        body: JSON.stringify({
-            POWER1: false,
-        }),
-    }).then((res) => {
-        if (res.status === 200) {
-        }
-    });
-}
 
 export default async function DashboardPage() {
 
@@ -223,7 +213,6 @@ export default async function DashboardPage() {
                         <p className="text-sm text-gray-600 dark:text-dark-text">Quickly turn on/ off the plug</p>
                     </div>
                     <Suspense fallback={<LoadingComponent size={"48"}/>}>
-                        {/*// @ts-ignore*/}
                         <PlugSwitch defaultState={(await getPlugStatus()).POWER1 == 'ON'}/>
                     </Suspense>
                 </div>
