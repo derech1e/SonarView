@@ -4,6 +4,7 @@ import Link from "next/link";
 import {ToggleSwitch} from "@/components/ToggleSwitch";
 import {useState} from "react";
 import {useRouter} from "next/navigation";
+import {revalidatePath} from "next/cache";
 
 export function JobTable({initialData}) {
 

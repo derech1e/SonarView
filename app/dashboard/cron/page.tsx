@@ -6,6 +6,7 @@ export default async function CronPage() {
         cache: "no-store",
         next: {
             revalidate: 0,
+            tags: ["jobs"]
         }
     });
 

@@ -1,27 +1,13 @@
-import {PlugSwitch} from "@/components/PlugSwitch";
 import {ChartView} from "@/components/ChartView";
 import {Suspense} from "react";
+import {LoadingComponent} from "@/components/LoadingComponent";
+import {PlugSwitch} from "@/components/PlugSwitch";
 
 interface SensorData {
     datetime: Date;
     distance: number;
 }
 
-async function getMeasurementData() {
-    const response = await fetch("http://192.168.200.193:3000/sensor",
-        {
-            cache: 'default',
-            next: {
-                revalidate: 60 * 60 * 24,
-            }
-        });
-
-    if (!response.ok) {
-        throw new Error("Failed to fetch measurements");
-    }
-    return await response.json();
-
-}
 
 function movingAverage(data: SensorData[], windowSize) {
     const smoothedData: any = [];
@@ -102,7 +88,7 @@ function reduceData(data: SensorData[]): SensorData[] {
     let futureCount = 0;
 
     for (let i = 0; i < data.length; i++) {
-        if(currentDistance === -1) {
+        if (currentDistance === -1) {
             currentDistance = parseFloat(data[i].distance.toFixed(2));
             currentCount++;
             continue;
@@ -110,15 +96,15 @@ function reduceData(data: SensorData[]): SensorData[] {
 
         const roundedDistance = parseFloat(data[i].distance.toFixed(2));
 
-        if(roundedDistance === currentDistance) {
+        if (roundedDistance === currentDistance) {
             currentCount++;
             futureCount++;
-            if(futureCount >= 19) {
-                reducedData.push({datetime: data[i-futureCount+1].datetime, distance: currentDistance});
+            if (futureCount >= 19) {
+                reducedData.push({datetime: data[i - futureCount + 1].datetime, distance: currentDistance});
                 futureCount = 0;
             }
         } else {
-            reducedData.push({datetime: data[i == 0 ? 0 : i-1].datetime, distance: currentDistance});
+            reducedData.push({datetime: data[i == 0 ? 0 : i - 1].datetime, distance: currentDistance});
             reducedData.push({datetime: data[i].datetime, distance: roundedDistance});
 
             currentDistance = roundedDistance;
@@ -127,7 +113,7 @@ function reduceData(data: SensorData[]): SensorData[] {
         }
     }
 
-    if(futureCount >= 19) {
+    if (futureCount >= 19) {
         reducedData.push({datetime: data[data.length - futureCount].datetime, distance: currentDistance});
     }
 
@@ -175,9 +161,9 @@ function reduceSensorData(data: SensorData[], windowSize: number): SensorData[] 
     return reducedData;
 }
 
-
-export default async function DashboardPage() {
-
+async function getPlugStatus() {
+    'use server';
+    new Promise(resolve => setTimeout(resolve, 15000));
     const response = await fetch("http://pi.de:3000/plug/status",
         {
             cache: 'no-store',
@@ -189,12 +175,40 @@ export default async function DashboardPage() {
     if (!response.ok) {
         throw new Error("Failed to fetch plug status");
     }
+    return await response.json();
+}
 
-    const defaultCheckedPromise = response.json();
-    const dataPromise = getMeasurementData();
 
-    const [defaultChecked, data] = await Promise.all([defaultCheckedPromise, dataPromise]);
+async function getMeasurementData() {
+    'use server';
+    new Promise(resolve => setTimeout(resolve, 5000));
+    const response = await fetch("http://192.168.200.193:3000/sensor",
+        {
+            next: {
+                revalidate: 60 * 60 * 24,
+            }
+        });
 
+    if (!response.ok) {
+        throw new Error("Failed to fetch measurements");
+    }
+    return await response.json();
+
+}
+
+async function handleChange(newState) {
+    await fetch("/api/plug", {
+        method: "PATCH",
+        body: JSON.stringify({
+            POWER1: false,
+        }),
+    }).then((res) => {
+        if (res.status === 200) {
+        }
+    });
+}
+
+export default async function DashboardPage() {
 
     return (
         <div className={"w-full h-screen"}>
@@ -208,14 +222,17 @@ export default async function DashboardPage() {
                         <h1 className="font-medium text-xl dark:text-white">Plug Control</h1>
                         <p className="text-sm text-gray-600 dark:text-dark-text">Quickly turn on/ off the plug</p>
                     </div>
-                    <Suspense fallback={<div>Loading...</div>}>
-                        <PlugSwitch defaultState={defaultChecked.POWER1 == 'ON'}/>
+                    <Suspense fallback={<LoadingComponent size={"48"}/>}>
+                        {/*// @ts-ignore*/}
+                        <PlugSwitch defaultState={(await getPlugStatus()).POWER1 == 'ON'}/>
                     </Suspense>
                 </div>
             </div>
-            <div className={"mt-5 -ml-10"}>
-                <ChartView data={movingAverage(reduceData(data), 10)}/>
-            </div>
+            <Suspense fallback={<div className={"w-full h-full flex flex-col items-center mt-10"}><LoadingComponent size={"124"} /></div>}>
+                <div className={"mt-5 -ml-10"}>
+                    <ChartView data={movingAverage(reduceData(await getMeasurementData()), 10)}/>
+                </div>
+            </Suspense>
         </div>
     )
 }
