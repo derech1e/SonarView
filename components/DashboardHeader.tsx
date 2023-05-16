@@ -2,6 +2,7 @@
 import Link from "next/link";
 import {useSelectedLayoutSegments} from "next/navigation";
 import {ThemeToggler} from "@/components/ThemeToggler";
+import {SignedIn, SignedOut, SignInButton, UserButton} from "@clerk/nextjs";
 
 
 
@@ -43,6 +44,10 @@ export function DashboardHeader() {
             </div>
 
             <div className="flex items-center gap-6">
+                <SignedIn>
+                    {/* Mount the UserButton component */}
+                    <UserButton />
+                </SignedIn>
                 {/*<Link href="https://docs.uploadthing.com">*/}
                 {/*    <div*/}
                 {/*        className="flex items-center group gap-2  text-gray-600 hover:bg-gray-200 hover:text-black rounded-md px-3 py-1.5">*/}

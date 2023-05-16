@@ -1,6 +1,8 @@
 import './globals.css'
 import {Inter} from 'next/font/google'
 import {ThemeManger} from "@/components/ThemeManger";
+import {ClerkProvider} from "@clerk/nextjs";
+import Link from "next/link";
 
 const inter = Inter({subsets: ['latin']})
 
@@ -17,12 +19,14 @@ export default function RootLayout({
 
 
     return (
-        <html lang="de">
-        <ThemeManger>
+        <ClerkProvider>
+            <html lang="de">
             <body className={inter.className}>
-            {children}
+            <ThemeManger>
+                    {children}
+            </ThemeManger>
             </body>
-        </ThemeManger>
-        </html>
+            </html>
+        </ClerkProvider>
     )
 }

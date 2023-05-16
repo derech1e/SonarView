@@ -186,7 +186,7 @@ async function getMeasurementData() {
     const response = await fetch("http://192.168.200.193:3000/sensor",
         {
             next: {
-                revalidate: 60 * 60 * 24,
+                revalidate: 60,
             }
         });
 

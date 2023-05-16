@@ -1,3 +1,6 @@
+import {SignedIn, SignedOut, SignInButton, UserButton} from "@clerk/nextjs";
+import Link from "next/link";
+
 export default function Home() {
 
 
@@ -32,27 +35,33 @@ export default function Home() {
                         </a></div>
                         <div className="hidden lg:flex lg:gap-x-12"></div>
                         <div className="flex flex-1 items-center justify-end gap-x-6">
-                            <div className="flex gap-4 items-center"><a
-                                className="rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
-                                href="/sign-in">Sign In </a></div>
+                            <div className="flex gap-4 items-center">
+                                {/*<SignedIn>*/}
+                                    {/* Mount the UserButton component */}
+                                    {/*<UserButton />*/}
+                                {/*</SignedIn>*/}
+                                {/*<SignedOut>*/}
+                                {/*     Signed out users get sign in button*/}
+                                {/*    <SignInButton />*/}
+                                {/*</SignedOut>*/}
+                                <Link
+                                    className="rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                                    href="/sign-in">Sign In </Link>
+                            </div>
                         </div>
                     </nav>
                 </header>
                 <div className="mb-auto">
                     <div className="relative isolate px-6 pt-14 lg:px-8">
                         <div className="mx-auto max-w-2xl sm:py-48 lg:py-56">
-                            <div className="text-center"><h1
-                                className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Uploads made
-                                easy</h1><p
-                                className="mt-6 text-lg leading-8 text-gray-600">Think "S3 for the rest of us".
-                                Just <code
-                                    className="font-bold">npm install</code> and you're good to go.</p>
+                            <div className="text-center">
+                                <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">Homecontrol made easy!</h1>
+                                <p
+                                    className="mt-6 text-lg leading-8 text-gray-600">A simple way to control and overview your home cistern.</p>
                                 <div className="mt-10 flex items-center justify-center gap-x-6"><a
                                     className="rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
-                                    href="/dashboard">Get started</a><a
-                                    className="text-sm font-semibold leading-6 text-gray-900"
-                                    href="https://docs.uploadthing.com">Learn more <span
-                                    aria-hidden="true">→</span></a></div>
+                                    href="/dashboard">Get started</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -61,18 +70,6 @@ export default function Home() {
                                                                                                      className="sr-only">Footer</h2>
                     <div className="mx-auto max-w-7xl px-6 pb-8 lg:px-8">
                         <div className="border-white/10 pt-8 md:flex md:items-center md:justify-between">
-                            <div className="flex space-x-6 md:order-2">
-                                <a href="https://docs.uploadthing.com"
-                                   className="text-gray-500 hover:text-gray-400 flex flex-row items-center gap-2"><span>Docs</span>
-                                </a><a href="https://twitter.com/t3dotgg" className="text-gray-500 hover:text-gray-400"><span
-                                className="sr-only">Twitter</span>
-                            </a><a href="https://github.com/pingdotgg"
-                                   className="text-gray-500 hover:text-gray-400"><span
-                                className="sr-only">GitHub</span>
-                            </a><a href="https://discord.gg/AtC7hsyw"
-                                   className="text-gray-500 hover:text-gray-400"><span
-                                className="sr-only">Discord</span>
-                            </a></div>
                             <p className="mt-8 text-xs leading-5 text-gray-400 md:order-1 md:mt-0">© 2023
                                 Nuerk-Solutions.
                                 All rights
