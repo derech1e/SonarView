@@ -3,6 +3,7 @@ import {Suspense} from "react";
 import {LoadingComponent} from "@/components/LoadingComponent";
 import {PlugSwitch} from "@/components/PlugSwitch";
 
+
 export interface SensorData {
     datetime: Date;
     distance: number;
@@ -186,7 +187,7 @@ async function getMeasurementData() {
     const response = await fetch("http://192.168.200.193:3000/sensor",
         {
             next: {
-                revalidate: 60,
+                revalidate: 0,
             }
         });
 
@@ -219,7 +220,7 @@ export default async function DashboardPage() {
             </div>
             <Suspense fallback={<div className={"w-full h-full flex flex-col items-center mt-10"}><LoadingComponent size={"124"} /></div>}>
                 <div className={"mt-5 -ml-10"}>
-                    <ChartView data={movingAverage(reduceData(await getMeasurementData()), 10)}/>
+                    <ChartView data={await getMeasurementData()}/>
                 </div>
             </Suspense>
         </div>

@@ -27,10 +27,10 @@ export function ChartView({data}) {
     }
 
     const getPercentage = (data: SensorData[]) => {
-        return (data.map((item) => {
+        return (data.sort((i1, i2) => new Date(i1.datetime).getTime() - new Date(i2.datetime).getTime()).map((item) => {
             return {
                 datetime: item.datetime,
-                distance: Number(100 / +getMaxVolumeLiter() * +getVolumeLiter(item.distance)).toFixed(2),
+                distance: Number(100 / +getMaxVolumeLiter() * +getVolumeLiter(item.distance ?? 0)).toFixed(2),
             }
         }))
             .map(item => {
@@ -41,7 +41,8 @@ export function ChartView({data}) {
                     }
                 }
                 return item;
-            });
+            })
+            .filter(item => new Date(item.datetime) >= new Date(new Date().getTime() - 48 * 60 * 60 * 1000));
     }
 
 
