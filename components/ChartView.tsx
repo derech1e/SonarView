@@ -48,10 +48,10 @@ export function ChartView({data}) {
 
     return (
         <ResponsiveContainer width="100%" height={400}>
-            <AreaChart width={500} height={400} data={getPercentage(data)}>
+            <AreaChart width={500} height={400} data={data.sort((i1, i2) => new Date(i1.datetime).getTime() - new Date(i2.datetime).getTime()).filter(item => new Date(item.datetime) >= new Date(new Date().getTime() - 48 * 60 * 60 * 1000))}>
                 <CartesianGrid strokeDasharray="3 3"/>
                 <XAxis dataKey="datetime" tickFormatter={formatXAxis}/>
-                <YAxis domain={[0, 105]}/>
+                <YAxis domain={[0, 240]}/>
                 <Tooltip labelFormatter={formatXAxis}/>
                 <Legend/>
                 <Area type={"monotone"} dataKey="distance" stroke="#DC2626" fill="#DC2626"/>

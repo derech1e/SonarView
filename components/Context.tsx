@@ -3,8 +3,8 @@ import React, {createContext, useContext, useEffect, useState} from 'react';
 
 const STONE_HEIGHT = 6.5;
 const HOSE_DIAMETER = 3;
-const AVERAGE_WATER_USAGE_PER_MINUTE = 0.79190125;
-const AVERAGE_WATER_FILL_PER_MINUTE = 0.79190125;
+export const AVERAGE_WATER_USAGE_PER_MINUTE = 0.79190125;
+export const AVERAGE_WATER_FILL_PER_MINUTE = 0.3000564;
 
 export interface SettingsInterface {
     radius: number;
