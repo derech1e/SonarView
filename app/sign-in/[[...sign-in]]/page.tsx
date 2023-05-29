@@ -26,9 +26,9 @@ export default function Page() {
                             termsPageUrl: '/info/terms-of-service',
                         },
                     }}/>
-                    <div className={"flex pt-4"}>
-                        <span>By signin in, you agree to our <Link href={"/info/terms-of-service"} className={"text-blue-500 underline"}>Terms of Service</Link></span>
-                    </div>
+                    {/*<div className={"flex pt-4"}>*/}
+                    {/*    <span>By signin in, you agree to our <Link href={"/info/terms-of-service"} className={"text-blue-500 underline"}>Terms of Service</Link></span>*/}
+                    {/*</div>*/}
                 </div>
             </div>
         </div>

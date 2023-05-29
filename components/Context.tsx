@@ -25,16 +25,6 @@ export const defaultSettings: SettingsInterface = {
     minWaterHeight: 2 + HOSE_DIAMETER + STONE_HEIGHT,
 }
 
-const getSettingsFromCookies = () => {
-    const cookieString = document.cookie.split(';').find(cookie => cookie.startsWith('settings='));
-    return cookieString ? JSON.parse(cookieString.split('=')[1]) : defaultSettings;
-};
-
-
-const setSettingsToCookies = (settings) => {
-    document.cookie = `settings=${JSON.stringify(settings)}; path=/; max-age=${60 * 60 * 24 * 30}`;
-};
-
 export const SettingsContext = createContext<SettingsContextType>({
     settings: defaultSettings,
     setSettings: () => {
@@ -42,15 +32,10 @@ export const SettingsContext = createContext<SettingsContextType>({
 });
 
 export const SettingsContextProvider = ({children}) => {
-    const [settings, setSettings] = useState(getSettingsFromCookies());
+    const [settings, setSettings] = useState(defaultSettings);
     const updateSettings: SettingsContextType['setSettings'] = (newSettings) => {
         setSettings(newSettings);
     };
-
-    useEffect(() => {
-        // setSettings(newSettings);
-        setSettingsToCookies(settings);
-    }, [settings]);
 
     return (
         <SettingsContext.Provider value={{settings, setSettings: updateSettings}}>

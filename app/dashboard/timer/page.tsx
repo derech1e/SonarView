@@ -66,9 +66,9 @@ export default function Timer() {
     }
 
     function handleTimerStop() {
-        setInitialRemainingTime(0);
         timerSocket.emit('stopTimer');
         setIsPlaying(false);
+        setInitialRemainingTime(0);
     }
 
     return (
@@ -131,7 +131,7 @@ export default function Timer() {
                             isSmoothColorTransition={true}
                             size={300}
                             onComplete={() => {
-                                // setIsPlaying(false)
+                                setIsPlaying(false)
                                 return {shouldRepeat: false};
                             }}
                         >
