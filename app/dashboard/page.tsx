@@ -219,8 +219,8 @@ export default async function DashboardPage() {
                 </div>
             </div>
             <Suspense fallback={<div className={"w-full h-full flex flex-col items-center mt-10"}><LoadingComponent size={"124"} /></div>}>
+                <ChartSliderComponent />
                 <div className={"mt-5 -ml-10"}>
-                    <ChartSliderComponent />
                     <ChartView data={await getMeasurementData()}/>
                 </div>
             </Suspense>

@@ -35,15 +35,8 @@ export const SettingsContext = createContext<SettingsContextType>({
 
 export const SettingsContextProvider = ({children}) => {
     const [settings, setSettings] = useState(defaultSettings);
-    const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
     const updateSettings: SettingsContextType['setSettings'] = (newSettings) => {
-        if(timer) {
-            clearTimeout(timer);
-            setTimer(null);
-        }
-        setTimer(setTimeout(() => setSettings(newSettings), 1500));
-        // const timeOutId = setTimeout(() => setSettings(newSettings), 500);
-        // return () => clearTimeout(timeOutId);
+        setSettings(newSettings);
     };
 
     return (
