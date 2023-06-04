@@ -11,6 +11,7 @@ export interface SettingsInterface {
     heightAboveGround: number;
     maxWaterHeight: number;
     minWaterHeight: number;
+    range: number;
 }
 
 interface SettingsContextType {
@@ -23,6 +24,7 @@ export const defaultSettings: SettingsInterface = {
     heightAboveGround: 243.67,
     maxWaterHeight: 63.13,
     minWaterHeight: 2 + HOSE_DIAMETER + STONE_HEIGHT,
+    range: 48,
 }
 
 export const SettingsContext = createContext<SettingsContextType>({
@@ -33,8 +35,15 @@ export const SettingsContext = createContext<SettingsContextType>({
 
 export const SettingsContextProvider = ({children}) => {
     const [settings, setSettings] = useState(defaultSettings);
+    const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
     const updateSettings: SettingsContextType['setSettings'] = (newSettings) => {
-        setSettings(newSettings);
+        if(timer) {
+            clearTimeout(timer);
+            setTimer(null);
+        }
+        setTimer(setTimeout(() => setSettings(newSettings), 1500));
+        // const timeOutId = setTimeout(() => setSettings(newSettings), 500);
+        // return () => clearTimeout(timeOutId);
     };
 
     return (
