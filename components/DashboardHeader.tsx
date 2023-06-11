@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import {useSelectedLayoutSegments} from "next/navigation";
-import {ThemeToggler} from "@/components/ThemeToggler";
 
 
 
@@ -53,7 +52,6 @@ export function DashboardHeader() {
                         </svg>
                         <span className="text-sm">Help</span></div>
                 </Link>
-                <ThemeToggler />
             </div>
         </div>
     );
