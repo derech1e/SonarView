@@ -1,4 +1,3 @@
-import {SignedIn, SignedOut, SignInButton, UserButton} from "@clerk/nextjs";
 import Link from "next/link";
 
 export default function Home() {
@@ -36,17 +35,9 @@ export default function Home() {
                         <div className="hidden lg:flex lg:gap-x-12"></div>
                         <div className="flex flex-1 items-center justify-end gap-x-6">
                             <div className="flex gap-4 items-center">
-                                {/*<SignedIn>*/}
-                                    {/* Mount the UserButton component */}
-                                    {/*<UserButton />*/}
-                                {/*</SignedIn>*/}
-                                {/*<SignedOut>*/}
-                                {/*     Signed out users get sign in button*/}
-                                {/*    <SignInButton />*/}
-                                {/*</SignedOut>*/}
                                 <Link
                                     className="rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
-                                    href="/sign-in">Sign In </Link>
+                                    href="/dashboard">Sign In </Link>
                             </div>
                         </div>
                     </nav>
