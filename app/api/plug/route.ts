@@ -6,7 +6,7 @@ export async function PATCH(request: NextRequest) {
     if (body === null || body === undefined) return NextResponse.json({"error": "id or body is null"});
 
 
-    const response = await fetch(`http://pi.de:3000/plug/status/`, {
+    const response = await fetch(`${process.env.BACKEND_URL}/plug/status/`, {
         method: "PATCH",
         headers: {
             'Content-Type': 'application/json',

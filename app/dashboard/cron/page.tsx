@@ -2,11 +2,9 @@ import {JobTable} from "@/components/JobTable";
 import Link from "next/link";
 
 export default async function CronPage() {
-    const request = await fetch("http://pi.de:3000/scheduler/jobs", {
-        cache: "no-store",
+    const request = await fetch(`${process.env.BACKEND_URL}/scheduler/jobs`, {
         next: {
-            revalidate: 0,
-            tags: ["jobs"]
+            tags: ['scheduler'],
         }
     });
 
@@ -14,6 +12,7 @@ export default async function CronPage() {
 
     if (!request.ok)
         throw new Error('Failed to fetch data');
+
     return (
         <div className={"flex flex-col items-center justify-center w-full"}>
             <div

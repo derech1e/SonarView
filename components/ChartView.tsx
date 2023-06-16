@@ -1,8 +1,8 @@
 "use client";
 import {Area, AreaChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import {useSettingsContext} from "@/components/Context";
-import {SensorData} from "@/app/dashboard/page";
-import {useState} from "react";
+import {CalculationHelper} from "@/utils/CalculationHelper";
+import {SensorData} from "@/utils/interface/SensorData";
 
 const formatXAxis = (tickItem) => {
     const date = new Date(tickItem);
@@ -14,24 +14,11 @@ export function ChartView({data}) {
 
     const {settings} = useSettingsContext();
 
-    const getMaxVolumeLiter = () => {
-        const maxDistance = settings.heightAboveGround - settings.minWaterHeight - settings.maxWaterHeight;
-
-        return Number((maxDistance * Math.PI * Math.pow(settings.radius, 2)) / 1000).toFixed(2);
-    }
-
-    const getVolumeLiter = (distance: number) => {
-        let realDistance = settings.heightAboveGround - settings.minWaterHeight - settings.maxWaterHeight - (distance - settings.maxWaterHeight);
-
-        return Number((realDistance * Math.PI * Math.pow(settings.radius, 2)) / 1000).toFixed(2)
-
-    }
-
     const getPercentage = (data: SensorData[]) => {
         return (data.sort((i1, i2) => new Date(i1.datetime).getTime() - new Date(i2.datetime).getTime()).map((item) => {
             return {
                 datetime: item.datetime,
-                distance: Number(100 / +getMaxVolumeLiter() * +getVolumeLiter(item.distance ?? 0)).toFixed(2),
+                distance: new CalculationHelper(item.distance ?? 0).asPercent(),
             }
         }))
             .map(item => {

@@ -19,8 +19,8 @@ export function ToggleSwitch({isActive, id}) {
                     }),
                 }).then(r => {
                     if (r.ok) {
-                        setEnabled(newState)
-                        router.refresh();
+                        setEnabled(newState);
+                        // router.refresh();
                     }
                 });
             }}

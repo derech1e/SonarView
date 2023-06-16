@@ -1,29 +1,30 @@
 import {EditComponent} from "@/components/EditComponent";
 
 
-// export async function generateStaticParams() {
-//     const request = await fetch("http://pi.de:3000/scheduler/jobs", {
-//         cache: "no-store",
-//     });
-//
-//     const data = await request.json();
-//
-//     if (!request.ok)
-//         throw new Error('Failed to fetch data');
-//
-//     return data.map((job) => {
-//         return {
-//             id: job._id,
-//         }
-//     });
-// }
+export async function generateStaticParams() {
+    const request = await fetch(`${process.env.BACKEND_URL}/scheduler/jobs`, {
+        next: {
+            tags: ['scheduler'],
+        }
+    });
+
+    const data = await request.json();
+
+    if (!request.ok)
+        throw new Error('Failed to fetch data');
+
+    return data.map((job) => {
+        return {
+            id: job._id,
+        }
+    });
+}
 
 export default async function CronEdit({params}) {
 
-    const request = await fetch(`http://pi.de:3000/scheduler/jobs/${params.id}`, {
-        cache: "no-store",
+    const request = await fetch(`${process.env.BACKEND_URL}/scheduler/jobs/${params.id}`, {
         next: {
-            revalidate: 0,
+            tags: ['scheduler'],
         }
     })
 

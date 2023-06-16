@@ -3,12 +3,7 @@ import {Suspense} from "react";
 import {LoadingComponent} from "@/components/LoadingComponent";
 import {PlugSwitch} from "@/components/PlugSwitch";
 import {ChartSliderComponent} from "@/components/ChartSliderComponent";
-
-
-export interface SensorData {
-    datetime: Date;
-    distance: number;
-}
+import {SensorData} from "@/utils/interface/SensorData";
 
 
 function movingAverage(data: SensorData[], windowSize) {
@@ -184,7 +179,7 @@ async function getPlugStatus() {
 async function getMeasurementData() {
     'use server';
     new Promise(resolve => setTimeout(resolve, 5000));
-    const response = await fetch("http://192.168.200.193:3000/sensor",
+    const response = await fetch(`${process.env.BACKEND_URL}/sensor`,
         {
             next: {
                 revalidate: 60,
