@@ -1,5 +1,3 @@
-import {Suspense} from "react";
-import {LoadingComponent} from "@/components/LoadingComponent";
 import {PlugSwitch} from "@/components/PlugSwitch";
 
 export async function PlugControl() {

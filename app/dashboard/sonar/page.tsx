@@ -60,7 +60,7 @@ export default function SonarPage() {
 
             <button
                 className="p-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-red-500 self-start mt-2 disabled:bg-red-300"
-                disabled={isConnected} onClick={async (event) => {
+                disabled={isConnected} onClick={async () => {
                 setData([]);
                 setIsConnected(true);
                 await setTimeout(() => {

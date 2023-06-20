@@ -1,7 +1,6 @@
 import {ChartView} from "@/components/ChartView";
 import {Suspense} from "react";
 import {LoadingComponent} from "@/components/LoadingComponent";
-import {PlugSwitch} from "@/components/PlugSwitch";
 import {ChartSliderComponent} from "@/components/ChartSliderComponent";
 import {SensorData} from "@/utils/interface/SensorData";
 import {PlugControl} from "@/app/dashboard/(plug)/page";
