@@ -25,3 +25,9 @@ input[type=range].range-lg::-moz-range-thumb {
   height: 1.5rem;
   width: 1.5rem
 }
+
+.overflow-header {
+  text-overflow: ellipsis;
+  width: calc(80%); /* The trick is here! */
+  overflow: hidden;
+}

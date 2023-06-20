@@ -6,14 +6,13 @@ import {sonarSocket} from "@/app/socket";
 import {CalculationHelper} from "@/utils/CalculationHelper";
 import {SensorData} from "@/utils/interface/SensorData";
 import {formatTimeAgo} from "@/utils/RelativeTimerHelper";
-import {usePathname} from "next/navigation";
-import ReactDOM from 'react-dom';
+import {useRouter} from "next/navigation";
 
 export default function SonarPage() {
 
+    const router = useRouter();
     const [isConnected, setIsConnected] = useState(sonarSocket.connected);
     const [data, setData] = useState<SensorData[]>([]);
-    const [isLoaded, setIsLoaded] = useState(false);
 
     const distanceAverage = () => {
         return data.reduce((acc, curr) => (acc ?? 0) + (curr.distance ?? 0), 0) / data.length;
@@ -30,7 +29,7 @@ export default function SonarPage() {
         }
 
         function onSensorDataEvent(newData) {
-            if(data.length === 0) {
+            if(data.length >= 99) {
                 sonarSocket.disconnect();
             }
             setData((prevData) => [...prevData, newData]);
@@ -48,15 +47,8 @@ export default function SonarPage() {
     });
 
     useEffect(() => {
-
-        if(isLoaded) {
-            if (data.length > 99) {
-                sonarSocket.disconnect();
-                return;
-            }
-        }
-        setIsLoaded(true);
-    }, [data]);
+        sonarSocket.disconnect();
+    }, [router]);
 
     return (
         <div className={"flex flex-col items-center justify-center w-full"}>

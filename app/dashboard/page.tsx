@@ -4,7 +4,7 @@ import {LoadingComponent} from "@/components/LoadingComponent";
 import {PlugSwitch} from "@/components/PlugSwitch";
 import {ChartSliderComponent} from "@/components/ChartSliderComponent";
 import {SensorData} from "@/utils/interface/SensorData";
-
+import {PlugControl} from "@/app/dashboard/(plug)/page";
 
 function movingAverage(data: SensorData[], windowSize) {
     const smoothedData: any = [];
@@ -159,26 +159,8 @@ function reduceSensorData(data: SensorData[], windowSize: number): SensorData[] 
 }
 
 
-async function getPlugStatus() {
-    'use server';
-    new Promise(resolve => setTimeout(resolve, 15000));
-    const response = await fetch("http://pi.de:3000/plug/status",
-        {
-            next: {
-                revalidate: 0,
-            }
-        });
-
-    if (!response.ok) {
-        throw new Error("Failed to fetch plug status");
-    }
-    return await response.json();
-}
-
-
 async function getMeasurementData() {
-    'use server';
-    new Promise(resolve => setTimeout(resolve, 5000));
+    // new Promise(resolve => setTimeout(resolve, 5000));
     const response = await fetch(`${process.env.BACKEND_URL}/sensor`,
         {
             next: {
@@ -209,12 +191,13 @@ export default async function DashboardPage() {
                         <p className="text-sm text-gray-600 dark:text-dark-text">Quickly turn on/ off the plug</p>
                     </div>
                     <Suspense fallback={<LoadingComponent size={"48"}/>}>
-                        <PlugSwitch defaultState={(await getPlugStatus()).POWER1 == 'ON'}/>
+                        <PlugControl/>
                     </Suspense>
                 </div>
             </div>
-            <Suspense fallback={<div className={"w-full h-full flex flex-col items-center mt-10"}><LoadingComponent size={"124"} /></div>}>
-                <ChartSliderComponent />
+            <Suspense fallback={<div className={"w-full h-full flex flex-col items-center mt-10"}><LoadingComponent
+                size={"124"}/></div>}>
+                <ChartSliderComponent/>
                 <div className={"mt-5 -ml-10"}>
                     <ChartView data={await getMeasurementData()}/>
                 </div>

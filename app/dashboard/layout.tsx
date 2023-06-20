@@ -21,7 +21,7 @@ export default function DashboardLayout({
                         </div>
                     </div>
 
-                    <div className={"order-last min-h-screen w-full md:order-none md:ml-16 p-6 dark:bg-dark"}>
+                    <div className={"order-last min-h-screen w-full md:order-none lg:ml-16 p-6 dark:bg-dark"}>
                         {children}
                     </div>
                 </div>

@@ -14,7 +14,7 @@ export function JobTable({initialData}) {
                     <thead>
                     <tr>
                         <th scope="col"
-                            className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-dark-text sm:pl-6 lg:pl-8">ID
+                            className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-dark-text sm:pl-6 lg:pl-8 hidden sm:block">ID
                         </th>
                         <th scope="col"
                             className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-dark-text">Weekdays
@@ -30,11 +30,14 @@ export function JobTable({initialData}) {
                         initialData.length > 0 && initialData.map((job) => {
                             return (
                                 <tr key={job._id}>
-                                    <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8 w-1/2">
+                                    <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8 hidden sm:block">
                                         <Link className="flex grow hover:underline"
                                               href={`/dashboard/cron/${job._id}`}>{job._id}</Link>
                                     </td>
-                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{job.dayOfWeek.join(", ")}</td>
+                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        <Link className="flex grow hover:underline"
+                                              href={`/dashboard/cron/${job._id}`}>{job.dayOfWeek.join(", ")}</Link>
+                                    </td>
                                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{job.startTime} - {job.endTime}</td>
                                     <td className="flex relative whitespace-nowrap py-4 items-end text-sm font-medium gap-2">
                                         <ToggleSwitch isActive={job.isActive} id={job._id}/>
