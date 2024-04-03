@@ -18,6 +18,7 @@ export async function POST(request: NextRequest) {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
+            cache: "no-store",
         },
         body: JSON.stringify(body),
     });
@@ -40,6 +41,7 @@ export async function PUT(request: NextRequest) {
         method: "PUT",
         headers: {
             'Content-Type': 'application/json',
+            cache: "no-store",
         },
         body: JSON.stringify(body),
     });
@@ -63,6 +65,7 @@ export async function PATCH(request: NextRequest) {
         method: "PATCH",
         headers: {
             'Content-Type': 'application/json',
+            cache: "no-store",
         },
         body: JSON.stringify({
             isActive: body.isActive,
@@ -81,7 +84,10 @@ export async function DELETE(request: NextRequest) {
 
 
     const response = await fetch(`${process.env.BACKEND_URL}/scheduler/jobs/${id}`, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: {
+            cache: "no-store",
+        }
     });
     const data = await response.json();
     revalidateTag("scheduler")

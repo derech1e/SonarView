@@ -1,12 +1,13 @@
 import {HEIGHT_ABOVE_GROUND, MAX_WATER_HEIGHT, MIN_WATER_HEIGHT, RADIUS} from "@/utils/Constants";
 import {AVERAGE_WATER_FILL_PER_MINUTE, AVERAGE_WATER_USAGE_PER_MINUTE} from "@/components/Context";
+import {number} from "prop-types";
 
 export class CalculationHelper {
 
     public distance!: number;
 
     constructor(distance?: number) {
-        this.distance = distance ?? 0;
+        this.distance = distance ?? Number.NEGATIVE_INFINITY;
     }
 
     getRealDistance() {

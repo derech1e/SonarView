@@ -2,7 +2,7 @@
 import {SmallBox} from "@/components/SmallBox";
 import {MediumBox} from "@/components/MediumBox";
 import {useEffect, useState} from "react";
-import {sonarSocket} from "@/app/socket";
+import {sonarSocket, timerSocket} from "@/app/socket";
 import {CalculationHelper} from "@/utils/CalculationHelper";
 import {SensorData} from "@/utils/interface/SensorData";
 import {formatTimeAgo} from "@/utils/RelativeTimerHelper";
@@ -15,6 +15,8 @@ export default function SonarPage() {
     const [data, setData] = useState<SensorData[]>([]);
 
     const distanceAverage = () => {
+        if(data.length == 0)
+            return undefined
         return data.reduce((acc, curr) => (acc ?? 0) + (curr.distance ?? 0), 0) / data.length;
     }
 
@@ -28,6 +30,11 @@ export default function SonarPage() {
             setIsConnected(false);
         }
 
+        function handleConnectError() {
+            sonarSocket.disconnect()
+            onDisconnect()
+        }
+
         function onSensorDataEvent(newData) {
             if(data.length >= 99) {
                 sonarSocket.disconnect();
@@ -38,11 +45,13 @@ export default function SonarPage() {
         sonarSocket.on('connect', onConnect);
         sonarSocket.on('disconnect', onDisconnect);
         sonarSocket.on('distance', onSensorDataEvent);
+        sonarSocket.on('connect_error', handleConnectError)
 
         return () => {
             sonarSocket.off('connect', onConnect);
             sonarSocket.off('disconnect', onDisconnect);
             sonarSocket.off('distance', onSensorDataEvent);
+            sonarSocket.off('connect_error', handleConnectError)
         };
     });
 
@@ -63,7 +72,7 @@ export default function SonarPage() {
                 disabled={isConnected} onClick={async () => {
                 setData([]);
                 setIsConnected(true);
-                await setTimeout(() => {
+                setTimeout(() => {
                     sonarSocket.connect();
                 }, 1000);
             }}>Execute
@@ -79,22 +88,24 @@ export default function SonarPage() {
                 <SmallBox heading={"Datetime"} subheading={"100ms"}
                           value={new Date(data[data.length - 1]?.datetime).toJSON()?.slice(11, 23) ?? 'NaN'}/>
                 <SmallBox heading={"Trigger Tick"} subheading={"Sensor to Surface"}
-                          value={data[data.length - 1]?.sensor!.triggerTick ?? 'NaN'}/>
+                          value={data[data.length - 1]?.sensor?.triggerTick ?? 'NaN'}/>
                 <SmallBox heading={"Echo Tick"} subheading={"Surface to Sensor"}
-                          value={data[data.length - 1]?.sensor!.echoTick ?? 'NaN'}/>
+                          value={data[data.length - 1]?.sensor?.echoTick ?? 'NaN'}/>
                 <SmallBox heading={"Difference"} subheading={"Connected/ Disconnected"}
-                          value={data[data.length - 1]?.sensor!.diff ?? 'NaN'}/>
+                          value={data[data.length - 1]?.sensor?.diff ?? 'NaN'}/>
             </div>
 
             <div className={"md:flex md:flex-row grid grid-cols-2 w-full mt-4 gap-4 space-between"}>
                 <SmallBox heading={"Distance"} subheading={"in cm"}
-                          value={distanceAverage().toFixed(2)}/>
+                          value={data[data.length -1]?.distance ?? "NaN"}/>
                 <SmallBox heading={"Volume"} subheading={"in L"}
                           value={new CalculationHelper(distanceAverage()).getVolumeInLiters()}/>
                 <SmallBox heading={"Max Volume"} subheading={"in L"}
                           value={new CalculationHelper().getMaxVolumeInLiters()}/>
                 <SmallBox heading={"Percentage"} subheading={"in %"}
                           value={new CalculationHelper(distanceAverage()).asPercent()}/>
+                {/*<SmallBox heading={"Percentage Realtime"} subheading={"in %"}*/}
+                {/*          value={data.length == 0 ? 0 :new CalculationHelper(data[data.length - 1].distance).asPercent()}/>*/}
             </div>
 
             <div className={"md:flex md:flex-row grid grid-cols-2 w-full mt-4 gap-4 space-between"}>

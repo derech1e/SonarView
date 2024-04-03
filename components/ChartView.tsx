@@ -9,6 +9,15 @@ const formatXAxis = (tickItem) => {
     return date.toLocaleTimeString("de", {hour: "2-digit", minute: "2-digit"});
 };
 
+// Override console.error
+// This is a hack to suppress the warning about missing defaultProps in recharts library as of version 2.12
+// @link https://github.com/recharts/recharts/issues/3615
+const error = console.error;
+console.error = (...args: any) => {
+    if (/defaultProps/.test(args[0])) return;
+    error(...args);
+};
+
 
 export function ChartView({data}) {
 
@@ -18,21 +27,24 @@ export function ChartView({data}) {
         return (data.sort((i1, i2) => new Date(i1.datetime).getTime() - new Date(i2.datetime).getTime()).map((item) => {
             return {
                 datetime: item.datetime,
-                distance: new CalculationHelper(item.distance ?? 0).asPercent(),
+                percent: new CalculationHelper(item.distance ?? 0).asPercent(),
+                distance: item.distance,
             }
         }))
-            .map(item => {
-                if (+item.distance > 100) {
-                    return {
-                        ...item,
-                        distance: 100
-                    }
-                }
-                return item;
-            })
+            .filter(item => +item.percent > 0)
+            .filter(item => +item.percent < 100)
+            // .map(item => {
+            //     if (+item.percent > 100) {
+            //         return {
+            //             ...item,
+            //             percent: 100,
+            //             distance: item.distance,
+            //         }
+            //     }
+            //     return item;
+            // })
             .filter(item => new Date(item.datetime) >= new Date(new Date().getTime() - settings.range * 60 * 60 * 1000));
     }
-
 
     return (
         <ResponsiveContainer width="100%" height={400}>
@@ -43,7 +55,8 @@ export function ChartView({data}) {
                 <YAxis domain={[0, 110]}/>
                 <Tooltip labelFormatter={formatXAxis}/>
                 <Legend/>
-                <Area type={"monotone"} dataKey="distance" stroke="#DC2626" fill="#DC2626"/>
+                {/*<Area type={"step"} dataKey="distance" stroke="#4C9141" fill="#4C9141"/>*/}
+                <Area type={"step"} dataKey="percent" stroke="#DC2626" fill="#DC2626"/>
             </AreaChart>
         </ResponsiveContainer>
     );

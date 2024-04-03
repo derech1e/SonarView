@@ -5,6 +5,8 @@ import {useEffect, useState} from "react";
 import {timerSocket} from "@/app/socket";
 import {DurationRadioGroup, durations} from "@/app/dashboard/timer/(components)/DurationRadioGroup";
 import {Transition} from "@headlessui/react";
+import {LoadingComponent} from "@/components/LoadingComponent";
+import {timer} from "d3-timer";
 
 const children = ({remainingTime}) => {
     const remainingDate = new Date((remainingTime || 0) * 1000);
@@ -19,6 +21,7 @@ export default function Timer() {
 
     const [initialRemainingTime, setInitialRemainingTime] = useState<number | undefined>(0);
     const [isPlaying, setIsPlaying] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
     const [duration, setDuration] = useState(initialRemainingTime || 0);
     const [selectedDuration, setSelectedDuration] = useState(durations[1])
 
@@ -33,11 +36,14 @@ export default function Timer() {
         function onDisconnect() {
             console.log("DISCONNECTED")
             setIsConnected(false);
+            setIsLoading(false)
         }
 
         function onTimerEvent(newData) {
             if (newData === 'Timer stopped.') {
-                handleTimerStop();
+                setIsLoading(false)
+                setIsPlaying(false);
+                setInitialRemainingTime(0);
                 return
             }
             if (!isPlaying) {
@@ -45,6 +51,7 @@ export default function Timer() {
                 setIsPlaying(true)
                 setInitialRemainingTime(undefined);
             }
+            setIsLoading(false)
         }
 
         timerSocket.on('connect', onConnect);
@@ -59,16 +66,25 @@ export default function Timer() {
         };
     });
 
+    useEffect(() => {
+        if(!isConnected && !isPlaying) {
+            timerSocket.connect();
+        }
+    }, []);
+
     function handleTimerStart() {
+        setIsLoading(true);
+        timerSocket.connect();
         setInitialRemainingTime(selectedDuration.seconds);
         timerSocket.emit('startTimer', {duration: selectedDuration.seconds});
-        // setIsPlaying(true);
+        setIsPlaying(true);
     }
 
     function handleTimerStop() {
         timerSocket.emit('stopTimer');
         setIsPlaying(false);
         setInitialRemainingTime(0);
+        // timerSocket.disconnect();
     }
 
     return (
@@ -84,7 +100,9 @@ export default function Timer() {
                         <h1 className="font-medium text-xl dark:text-white">Timer Control</h1>
                         <p className="text-sm text-gray-600 dark:text-dark-text">Start and Stop the timer for the cistern</p>
                     </div>
-                    <div className={"inline-flex gap-2"}>
+                    <div className={"inline-flex items-center gap-2"}>
+                        {isLoading &&
+                            <LoadingComponent size={32}/>}
                         <button
                             disabled={isPlaying}
                             className={`px-8 py-4 text-sm font-medium rounded-md disabled:opacity-60 disabled:cursor-not-allowed ${!isPlaying ? outlinedClassName : filledClassName}`}
@@ -94,7 +112,10 @@ export default function Timer() {
                         <button
                             disabled={!isPlaying}
                             className={`px-8 py-4 text-sm font-medium rounded-md disabled:opacity-60 disabled:cursor-not-allowed ${isPlaying ? outlinedClassName : filledClassName}`}
-                            onClick={handleTimerStop}>
+                            onClick={() => {
+                                setIsLoading(true)
+                                handleTimerStop();
+                            }}>
                             Stop
                         </button>
                     </div>

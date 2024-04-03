@@ -15,6 +15,9 @@ export function PlugSwitch({defaultState}) {
             body: JSON.stringify({
                 POWER1: newState,
             }),
+            headers: {
+                cache: 'no-store',
+            }
         }).then((res) => {
             if (res.status === 200) {
                 setEnabled(newState);

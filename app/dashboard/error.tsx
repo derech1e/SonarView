@@ -1,9 +1,12 @@
 "use client";
 
-import {useState} from "react";
-
-export default function Error({reset}: { error: Error; reset: () => void }) {
-
+export default function Error({
+                                  error,
+                                  reset,
+                              }: {
+    error: Error & { digest?: string }
+    reset: () => void
+}) {
     return (
         <div className="flex flex-col gap-4 items-center bg-gray-100 m-5 p-5 rounded-lg">
             <p>Something went wrong while loading this page.</p>

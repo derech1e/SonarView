@@ -9,7 +9,7 @@ export default function CronLayout({
 
     return (
         <div>
-            <CronJobHeader />
+            <CronJobHeader/>
             {children}
         </div>
     );
