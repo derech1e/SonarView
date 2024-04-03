@@ -24,15 +24,16 @@ export function ChartView({data}) {
     const {settings} = useSettingsContext();
 
     const getPercentage = (data: SensorData[]) => {
+        console.log(settings.range)
         return (data.sort((i1, i2) => new Date(i1.datetime).getTime() - new Date(i2.datetime).getTime()).map((item) => {
             return {
                 datetime: item.datetime,
-                percent: new CalculationHelper(item.distance ?? 0).asPercent(),
+                // percent: new CalculationHelper(item.distance ?? 0).asPercent(),
                 distance: item.distance,
             }
         }))
-            .filter(item => +item.percent > 0)
-            .filter(item => +item.percent < 100)
+            // .filter(item => +item.percent > 0)
+            // .filter(item => +item.percent < 100)
             // .map(item => {
             //     if (+item.percent > 100) {
             //         return {
@@ -56,7 +57,7 @@ export function ChartView({data}) {
                 <Tooltip labelFormatter={formatXAxis}/>
                 <Legend/>
                 {/*<Area type={"step"} dataKey="distance" stroke="#4C9141" fill="#4C9141"/>*/}
-                <Area type={"step"} dataKey="percent" stroke="#DC2626" fill="#DC2626"/>
+                <Area type={"step"} dataKey="distance" stroke="#DC2626" fill="#DC2626"/>
             </AreaChart>
         </ResponsiveContainer>
     );

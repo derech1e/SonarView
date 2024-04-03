@@ -1,6 +1,7 @@
 import {use} from "react";
 import {ChartSliderComponent} from "@/components/ChartSliderComponent";
 import {ChartView} from "@/components/ChartView";
+
 export const fetchCache = 'force-no-store';
 
 export function ChartWrapper() {
@@ -9,7 +10,9 @@ export function ChartWrapper() {
         // await new Promise(resolve => setTimeout(resolve, 5000));
         const response = await fetch(`http://pi.de:3000/sensor`,
             {
-              cache: "no-cache"
+                next: {
+                    revalidate: 60,
+                }
             });
 
         if (!response.ok) {

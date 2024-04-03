@@ -20,7 +20,8 @@ export function Navigation({navLinks}) {
                         href={`/dashboard/${link.href}`}
                         key={link.name}
                     >
-                        {link.name}
+                        {link.svg}
+                        <span className={"sr-only line-clamp-2 sm:not-sr-only"}>{link.name}</span>
                     </Link>
                 );
             })}
