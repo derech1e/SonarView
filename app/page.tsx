@@ -4,7 +4,7 @@ export default function Home() {
 
 
     return (
-        <div className={"flex h-screen flex-col justify-between"}>
+        <div className={"flex flex-col justify-between"}>
             <div className={"flex flex-col h-full justify-between"}>
                 <div className="absolute left-0 top-0 -z-10 h-full w-full overflow-hidden">
                     <div

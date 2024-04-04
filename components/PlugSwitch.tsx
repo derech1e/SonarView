@@ -1,7 +1,7 @@
 "use client"
 import {useState} from "react";
 import {Switch} from "@headlessui/react";
-import {LoadingComponent} from "@/components/LoadingComponent";
+import {LoadingSpinner} from "@/components/LoadingSpinner";
 
 export function PlugSwitch({defaultState}) {
     const [enabled, setEnabled] = useState(defaultState);
@@ -15,9 +15,7 @@ export function PlugSwitch({defaultState}) {
             body: JSON.stringify({
                 POWER1: newState,
             }),
-            headers: {
-                cache: 'no-store',
-            }
+            cache: 'no-store',
         }).then((res) => {
             if (res.status === 200) {
                 setEnabled(newState);
@@ -29,7 +27,7 @@ export function PlugSwitch({defaultState}) {
     return (
         <div className={"flex flex-row items-center"}>
             {isLoading &&
-            <LoadingComponent size={32}/>}
+            <LoadingSpinner size={32}/>}
             <Switch
                 disabled={isLoading}
                 checked={enabled}

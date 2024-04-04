@@ -1,4 +1,4 @@
-export function LoadingComponent({size}) {
+export function LoadingSpinner({size}) {
     return (
         <svg aria-hidden="true" className="mr-2 text-gray-200 animate-spin dark:text-gray-400 fill-red-600"
              viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg" width={`${size}`} height={`${size}`}>

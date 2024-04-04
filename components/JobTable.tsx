@@ -6,7 +6,7 @@ export function JobTable({initialData}) {
 
     return (
         <div className={"dark:text-white"}>
-            <div className="flex flex-row w-full gap-4 space-between overflow-x-auto">
+            <div className="flex flex-row w-full gap-4 space-between overflow-x-auto overflow-y-hidden">
                 <table className="min-w-full divide-y divide-gray-300 overflow-y-auto">
                     <thead>
                     <tr>
@@ -22,7 +22,7 @@ export function JobTable({initialData}) {
                         <th scope="col" className="relative"><span className="sr-only">Roll / Delete</span></th>
                     </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-200 bg-white ">
+                    <tbody className="divide-y divide-gray-200">
                     {
                         initialData.length > 0 && initialData.map((job) => {
                             return (

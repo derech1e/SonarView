@@ -20,8 +20,8 @@ export default function DashboardLayout({
                             <Navigation navLinks={navItems}/>
                         </div>
                     </div>
-
-                    <div className={"order-last min-h-screen w-full md:order-none lg:ml-16 p-6 dark:bg-dark"}>
+                    {/*sm:h-[calc(100vh-6rem-1px)]*/}
+                    <div className={"order-last w-full md:order-none lg:ml-16 p-6 dark:bg-dark"}>
                         {children}
                     </div>
                 </div>

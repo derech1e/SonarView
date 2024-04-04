@@ -24,7 +24,6 @@ export function ChartView({data}) {
     const {settings} = useSettingsContext();
 
     const getPercentage = (data: SensorData[]) => {
-        console.log(settings.range)
         return (data.sort((i1, i2) => new Date(i1.datetime).getTime() - new Date(i2.datetime).getTime()).map((item) => {
             return {
                 datetime: item.datetime,

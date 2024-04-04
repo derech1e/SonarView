@@ -32,7 +32,7 @@ export default function Settings() {
 
 
     return (
-        <div className="order-last min-h-screen w-full md:order-none p-6 dark:text-white">
+        <div className="order-last w-full md:order-none p-6 dark:text-white">
             <div className="flex flex-col items-center justify-center w-full">
                 <div className="flex flex-col text-start w-full gap-2">
                     <h1 className="font-medium text-xl">Sensor measure Settings</h1>

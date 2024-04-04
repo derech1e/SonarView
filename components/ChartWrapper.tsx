@@ -2,13 +2,11 @@ import {use} from "react";
 import {ChartSliderComponent} from "@/components/ChartSliderComponent";
 import {ChartView} from "@/components/ChartView";
 
-export const fetchCache = 'force-no-store';
-
 export function ChartWrapper() {
 
     async function getMeasurementData() {
         // await new Promise(resolve => setTimeout(resolve, 5000));
-        const response = await fetch(`http://pi.de:3000/sensor`,
+        const response = await fetch(`http://localhost:3000/sensor`,
             {
                 next: {
                     revalidate: 60,
@@ -22,7 +20,6 @@ export function ChartWrapper() {
     }
 
     const measurementData = use(getMeasurementData().catch(() => null))
-    console.log(measurementData[0])
 
     if (measurementData == null) {
         return (

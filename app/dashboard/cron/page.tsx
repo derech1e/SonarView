@@ -2,6 +2,7 @@ import {JobTable} from "@/components/JobTable";
 import Link from "next/link";
 
 export default async function CronPage() {
+    // await new Promise(resolve => setTimeout(resolve, 5000));
     const request = await fetch(`${process.env.BACKEND_URL}/scheduler/jobs`, {
         next: {
             tags: ['scheduler'],
@@ -16,7 +17,7 @@ export default async function CronPage() {
     return (
         <div className={"flex flex-col items-center justify-center w-full"}>
             <div
-                className="flex flex-col rounded-lg h-96 border border-gray-200 w-full mt-4 gap-4 space-between divide-y divide-gray-200">
+                className="flex flex-col rounded-lg border border-gray-200 w-full mt-4 gap-4 space-between divide-y divide-gray-200">
                 <div className="flex flex-row w-full px-6 pt-6 pb-2 gap-4 justify-between">
                     <div className="flex flex-col">
                         <h2 className="font-medium text-lg dark:text-white">All jobs</h2>
