@@ -1,4 +1,4 @@
-import {EditComponent} from "@/components/EditComponent";
+import EditCronComponent from "@/app/dashboard/cron/[id]/(components)/EditCronComponent";
 
 
 export async function generateStaticParams() {
@@ -20,7 +20,8 @@ export async function generateStaticParams() {
     });
 }
 
-export default async function CronEdit({params}) {
+
+export default async function EditCronJob({params}) {
 
     const request = await fetch(`${process.env.BACKEND_URL}/scheduler/jobs/${params.id}`, {
         next: {
@@ -31,13 +32,10 @@ export default async function CronEdit({params}) {
     const data = await request.json();
 
     if (!request.ok)
-        throw new Error( request.statusText);
-
+        throw new Error(request.statusText);
 
 
     return (
-        <div className={"flex flex-col items-center justify-center w-full"}>
-            <EditComponent data={data}/>
-        </div>
+        <EditCronComponent data={data}/>
     );
 }
