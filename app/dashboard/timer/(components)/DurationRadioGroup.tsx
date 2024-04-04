@@ -2,6 +2,7 @@
 
 
 import {RadioGroup} from "@headlessui/react";
+import {JSX, SVGProps} from "react";
 
 export const durations = [
     {
@@ -25,6 +26,10 @@ export const durations = [
         seconds: 20 * 60,
     },
     {
+        name: '25 min',
+        seconds: 25 * 60,
+    },
+    {
         name: '30 min',
         seconds: 30 * 60,
     },
@@ -40,60 +45,55 @@ export const durations = [
 
 export function DurationRadioGroup({selectedDuration, setSelectedDuration}) {
     return (
-            <div className="mt-5 w-full max-w-md absolute">
-                <RadioGroup value={selectedDuration} onChange={setSelectedDuration} >
-                    <div className="space-2 grid grid-cols-2 gap-2 whitespace-nowrap">
-                        {durations.map((plan) => (
-                            <RadioGroup.Option
-                                key={plan.name}
-                                value={plan}
-                                className={({ active, checked }) =>
-                                    `${
-                                        active
-                                            ? 'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-red-700'
-                                            : ''
-                                    }
-                  ${
-                                        checked ? 'bg-red-700 bg-opacity-90 text-white' : 'bg-white dark:bg-gray-400'
-                                    }
-                    relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none`
-                                }
-                            >
-                                {({ active, checked }) => (
-                                    <>
-                                        <div className="flex w-full items-center justify-between">
-                                            <div className="flex items-center">
-                                                <div className="text-sm">
-                                                    <RadioGroup.Label
-                                                        as="p"
-                                                        className={`font-medium  ${
-                                                            checked ? 'text-white' : 'text-gray-900'
-                                                        }`}
-                                                    >
-                                                        {plan.name}
-                                                    </RadioGroup.Label>
-                                                </div>
+        <div className="mt-5 w-full max-w-2xl min-w-40">
+            <RadioGroup value={selectedDuration} onChange={setSelectedDuration}>
+                <div className="space-2 grid grid-cols-3 gap-2 whitespace-nowrap">
+                    {durations.map((plan) => (
+                        <RadioGroup.Option
+                            key={plan.name}
+                            value={plan}
+                            className={
+                                ({active, checked}) =>
+                                    `${active ? "ring-opacity-60" : "ring-opacity-0"} ` +
+                                    `${checked ? 'bg-red-700 bg-opacity-90 text-white' : 'bg-white dark:bg-gray-400'} ` +
+                                    `relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md ring-2 ring-red-700`
+                            }
+                        >
+                            {({active, checked}) => (
+                                <>
+                                    <div className="flex w-full items-center justify-between">
+                                        <div className="flex items-center">
+                                            <div className="text-sm">
+                                                <RadioGroup.Label
+                                                    as="p"
+                                                    className={`font-medium ${
+                                                        checked ? 'text-white' : 'text-gray-900'
+                                                    }`}
+                                                >
+                                                    {plan.name}
+                                                </RadioGroup.Label>
                                             </div>
-                                            {checked && (
-                                                <div className="shrink-0 text-white">
-                                                    <CheckIcon className="h-6 w-6" />
-                                                </div>
-                                            )}
                                         </div>
-                                    </>
-                                )}
-                            </RadioGroup.Option>
-                        ))}
-                    </div>
-                </RadioGroup>
-            </div>
+                                        {checked && (
+                                            <div className="shrink-0 text-white">
+                                                <CheckIcon className="h-5 w-5"/>
+                                            </div>
+                                        )}
+                                    </div>
+                                </>
+                            )}
+                        </RadioGroup.Option>
+                    ))}
+                </div>
+            </RadioGroup>
+        </div>
     )
 }
 
-function CheckIcon(props) {
+function CheckIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
     return (
         <svg viewBox="0 0 24 24" fill="none" {...props}>
-            <circle cx={12} cy={12} r={12} fill="#fff" opacity="0.2" />
+            <circle cx={12} cy={12} r={12} fill="#fff" opacity="0.2"/>
             <path
                 d="M7 13l3 3 7-7"
                 stroke="#fff"
