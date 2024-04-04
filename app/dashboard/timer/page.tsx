@@ -1,12 +1,12 @@
 "use client";
 
 import {CountdownCircleTimer} from "react-countdown-circle-timer";
-import {useEffect, useState} from "react";
+import {SetStateAction, useEffect, useState} from "react";
 import {timerSocket} from "@/app/socket";
 import {DurationRadioGroup, durations} from "@/app/dashboard/timer/(components)/DurationRadioGroup";
 import {Transition} from "@headlessui/react";
-import {LoadingComponent} from "@/components/LoadingComponent";
-import {timer} from "d3-timer";
+import {LoadingSpinner} from "@/components/LoadingSpinner";
+import arg from "arg";
 
 const children = ({remainingTime}) => {
     const remainingDate = new Date((remainingTime || 0) * 1000);
@@ -27,31 +27,34 @@ export default function Timer() {
 
     const [isConnected, setIsConnected] = useState(timerSocket.connected);
 
+    function connectToSocket() {
+        if (!timerSocket.connected)
+            timerSocket.connect()
+    }
+
     useEffect(() => {
         function onConnect() {
-            console.log("CONNECTED")
             setIsConnected(true);
         }
 
         function onDisconnect() {
-            console.log("DISCONNECTED")
             setIsConnected(false);
             setIsLoading(false)
         }
 
-        function onTimerEvent(newData) {
-            if (newData === 'Timer stopped.') {
-                setIsLoading(false)
-                setIsPlaying(false);
+        function onTimerEvent(...args) {
+            if (args[0] === 'Timer stopped.' || args[0] === 'Timer done.') {
                 setInitialRemainingTime(0);
+                setIsPlaying(false);
+                setIsLoading(false)
                 return
             }
             if (!isPlaying) {
-                setDuration(newData);
                 setIsPlaying(true)
-                setInitialRemainingTime(undefined);
+                setDuration(args[1]);
+                setInitialRemainingTime(args[0]);
+                setIsLoading(false)
             }
-            setIsLoading(false)
         }
 
         timerSocket.on('connect', onConnect);
@@ -67,24 +70,21 @@ export default function Timer() {
     });
 
     useEffect(() => {
-        if(!isConnected && !isPlaying) {
-            timerSocket.connect();
+        if (!isConnected && !isPlaying) {
+            connectToSocket()
         }
     }, []);
 
     function handleTimerStart() {
         setIsLoading(true);
-        timerSocket.connect();
-        setInitialRemainingTime(selectedDuration.seconds);
+        connectToSocket()
         timerSocket.emit('startTimer', {duration: selectedDuration.seconds});
-        setIsPlaying(true);
     }
 
     function handleTimerStop() {
+        setIsLoading(true)
+        connectToSocket()
         timerSocket.emit('stopTimer');
-        setIsPlaying(false);
-        setInitialRemainingTime(0);
-        // timerSocket.disconnect();
     }
 
     return (
@@ -98,11 +98,12 @@ export default function Timer() {
                 <div className="flex flex-row items-center justify-between">
                     <div className="flex flex-col text-start w-full gap-2">
                         <h1 className="font-medium text-xl dark:text-white">Timer Control</h1>
-                        <p className="text-sm text-gray-600 dark:text-dark-text">Start and Stop the timer for the cistern</p>
+                        <p className="text-sm text-gray-600 dark:text-dark-text">Start and Stop the timer for the
+                            cistern</p>
                     </div>
                     <div className={"inline-flex items-center gap-2"}>
                         {isLoading &&
-                            <LoadingComponent size={32}/>}
+                            <LoadingSpinner size={32}/>}
                         <button
                             disabled={isPlaying}
                             className={`px-8 py-4 text-sm font-medium rounded-md disabled:opacity-60 disabled:cursor-not-allowed ${!isPlaying ? outlinedClassName : filledClassName}`}
@@ -112,10 +113,7 @@ export default function Timer() {
                         <button
                             disabled={!isPlaying}
                             className={`px-8 py-4 text-sm font-medium rounded-md disabled:opacity-60 disabled:cursor-not-allowed ${isPlaying ? outlinedClassName : filledClassName}`}
-                            onClick={() => {
-                                setIsLoading(true)
-                                handleTimerStop();
-                            }}>
+                            onClick={handleTimerStop}>
                             Stop
                         </button>
                     </div>
@@ -124,51 +122,49 @@ export default function Timer() {
             {isPlaying ? (
                 <div className="flex flex-col text-start w-full gap-2 mt-6 mb-4">
                     <h1 className="font-medium text-xl dark:text-white">Duration</h1>
-                    <p className="text-sm text-gray-600 dark:text-dark-text">The current left time until the timer stops</p>
+                    <p className="text-sm text-gray-600 dark:text-dark-text">The current left time until the timer
+                        stops</p>
                 </div>
             ) : (
                 <div className="flex flex-col text-start w-full gap-2 mt-6">
                     <h1 className="font-medium text-xl dark:text-white">Duration</h1>
-                    <p className="text-sm text-gray-600 dark:text-dark-text">Pick a duration for the timer that is used when pressing the
+                    <p className="text-sm text-gray-600 dark:text-dark-text">Pick a duration for the timer that is used
+                        when pressing the
                         start
                         button</p>
                 </div>
             )}
             <div className={"relative"}>
-                    <Transition show={isPlaying}
-                                className={"absolute"}
-                                enter="transition-opacity ease-linear duration-300"
-                                enterFrom="opacity-0"
-                                enterTo="opacity-100"
-                                leave="transition-opacity ease-linear duration-300"
-                                leaveFrom="opacity-100"
-                                leaveTo="opacity-0">
-                        <CountdownCircleTimer
-                            isPlaying={isPlaying}
-                            duration={duration}
-                            colors={['#DC2626', '#dc5a26', '#3edc26']}
-                            colorsTime={[duration - (duration / 3), duration - (duration / 2), 0]}
-                            initialRemainingTime={initialRemainingTime}
-                            isSmoothColorTransition={true}
-                            size={300}
-                            onComplete={() => {
-                                setIsPlaying(false)
-                                return {shouldRepeat: false};
-                            }}
-                        >
-                            {({remainingTime}) => <span className={"text-3xl font-medium"}>{children({remainingTime})}</span>}
-                        </CountdownCircleTimer>
-                    </Transition>
-                    <Transition show={!isPlaying}
-                                enter="transition-opacity ease-linear duration-300"
-                                enterFrom="opacity-0"
-                                enterTo="opacity-100"
-                                leave="transition-opacity ease-linear duration-300"
-                                leaveFrom="opacity-100"
-                                leaveTo="opacity-0">
-                        <DurationRadioGroup selectedDuration={selectedDuration}
-                                            setSelectedDuration={setSelectedDuration}/>
-                    </Transition>
+                <Transition show={isPlaying}
+                            className={"absolute"}
+                            enter="transition-opacity ease-linear duration-300"
+                            enterFrom="opacity-0"
+                            enterTo="opacity-100"
+                            leave="transition-opacity ease-linear duration-300"
+                            leaveFrom="opacity-100"
+                            leaveTo="opacity-0">
+                    <CountdownCircleTimer
+                        initialRemainingTime={initialRemainingTime}
+                        duration={duration}
+                        isPlaying={isPlaying}
+                        colors={['#DC2626', '#dc5a26', '#3edc26']}
+                        colorsTime={[duration - (duration / 2), duration - (duration / 3), 0]}
+                        size={300}
+                    >
+                        {({remainingTime}) => <span
+                            className={"text-3xl font-medium"}>{children({remainingTime})}</span>}
+                    </CountdownCircleTimer>
+                </Transition>
+                <Transition show={!isPlaying}
+                            enter="transition-opacity ease-linear duration-300"
+                            enterFrom="opacity-0"
+                            enterTo="opacity-100"
+                            leave="transition-opacity ease-linear duration-300"
+                            leaveFrom="opacity-100"
+                            leaveTo="opacity-0">
+                    <DurationRadioGroup selectedDuration={selectedDuration}
+                                        setSelectedDuration={setSelectedDuration}/>
+                </Transition>
             </div>
         </div>
     );
