@@ -22,7 +22,7 @@ interface SettingsContextType {
 export const defaultSettings: SettingsInterface = {
     radius: 100,
     heightAboveGround: 243.67,
-    maxWaterHeight: 63.13,
+    maxWaterHeight: 67.7,
     minWaterHeight: 2 + HOSE_DIAMETER + STONE_HEIGHT,
     range: 48,
 }

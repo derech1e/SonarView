@@ -17,7 +17,7 @@ export default function SonarPage() {
     const distanceAverage = () => {
         if(data.length == 0)
             return undefined
-        return data.reduce((acc, curr) => (acc ?? 0) + (curr.distance ?? 0), 0) / data.length;
+        return data.reduce((acc, curr) => (acc ?? 0) + (curr.distance / 10 ?? 0), 0) / data.length;
     }
 
     useEffect(() => {
@@ -97,7 +97,7 @@ export default function SonarPage() {
 
             <div className={"md:flex md:flex-row grid grid-cols-2 w-full mt-4 gap-4 space-between"}>
                 <SmallBox heading={"Distance"} subheading={"in cm"}
-                          value={data[data.length -1]?.distance ?? "NaN"}/>
+                          value={data[data.length -1]?.distance / 10 ?? "NaN"}/>
                 <SmallBox heading={"Volume"} subheading={"in L"}
                           value={new CalculationHelper(distanceAverage()).getVolumeInLiters()}/>
                 <SmallBox heading={"Max Volume"} subheading={"in L"}

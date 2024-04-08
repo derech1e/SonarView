@@ -6,7 +6,7 @@ export function ChartWrapper() {
 
     async function getMeasurementData() {
         // await new Promise(resolve => setTimeout(resolve, 5000));
-        const response = await fetch(`http://localhost:3000/sensor`,
+        const response = await fetch(`http://pi.de:3000/sensor`,
             {
                 next: {
                     revalidate: 60,

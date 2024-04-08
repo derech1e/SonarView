@@ -15,7 +15,7 @@ export async function createCron(prevState: {
         }
     })
 
-    const response = await fetch("http://localhost:3001/api/cron", {
+    const response = await fetch("http://pi.de:3000/api/cron", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -48,7 +48,7 @@ export async function updateCron(prevState: {
         }
     })
 
-    const response = await fetch(`http://localhost:3001/api/cron?id=${formData.get('id')}`, {
+    const response = await fetch(`http://pi.de:3000/api/cron?id=${formData.get('id')}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
