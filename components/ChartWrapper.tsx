@@ -14,7 +14,7 @@ export function ChartWrapper() {
             });
 
         if (!response.ok) {
-            throw new Error("Failed to fetch measurements");
+            throw new Error("Failed to fetch measurements" + await response.json());
         }
         return await response.json();
     }

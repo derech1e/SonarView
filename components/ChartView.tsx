@@ -67,8 +67,8 @@ export function ChartView({data}) {
                 <Tooltip labelFormatter={formatXAxis}/>
                 <Legend/>
                 {/*<Area type={"step"} dataKey="distance" stroke="#4C9141" fill="#4C9141"/>*/}
-                <Area type={"monotone"} dataKey="percent" stroke="#DC2626" fill="#DC2626"/>
-                <Line type="monotone" dataKey="distance" stroke="#4C9141" />
+                <Area type={"monotoneX"} dataKey="percent" stroke="#DC2626" fill="#DC2626"/>
+                <Line type="monotoneX" dataKey="distance" stroke="#4C9141" />
             </ComposedChart>
         </ResponsiveContainer>
     );
