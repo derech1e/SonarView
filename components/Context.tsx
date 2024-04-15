@@ -24,7 +24,7 @@ export const defaultSettings: SettingsInterface = {
     heightAboveGround: 243.67,
     maxWaterHeight: 67.7,
     minWaterHeight: 2 + HOSE_DIAMETER + STONE_HEIGHT,
-    range: 48,
+    range: 32,
 }
 
 export const SettingsContext = createContext<SettingsContextType>({
