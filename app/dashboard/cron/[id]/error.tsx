@@ -1,7 +1,4 @@
 "use client";
-
-import {useState} from "react";
-
 export default function Error({reset}: { error: Error; reset: () => void }) {
 
     return (
