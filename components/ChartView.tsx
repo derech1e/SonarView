@@ -43,12 +43,12 @@ export function ChartView({data}) {
             }
         }))
             .filter(item => +item.percent > 0)
-            .filter(item => +item.percent < 100)
+            .filter(item => +item.percent < 105)
             .map(item => {
-                if (+item.percent > 100) {
+                if (+item.percent > 105) {
                     return {
                         ...item,
-                        percent: 100,
+                        percent: 105,
                         distance: item.distance,
                     }
                 }
@@ -63,7 +63,7 @@ export function ChartView({data}) {
                        data={getPercentage(data).sort((i1, i2) => new Date(i1.datetime).getTime() - new Date(i2.datetime).getTime())}>
                 <CartesianGrid strokeDasharray="3 3"/>
                 <XAxis dataKey="datetime" tickFormatter={formatXAxis}/>
-                <YAxis domain={[0, 110]}/>
+                <YAxis domain={[0, 105]}/>
                 <Tooltip labelFormatter={formatXAxis}/>
                 <Legend/>
                 {/*<Area type={"step"} dataKey="distance" stroke="#4C9141" fill="#4C9141"/>*/}
