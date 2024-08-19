@@ -8,9 +8,7 @@ export function ChartWrapper() {
         // await new Promise(resolve => setTimeout(resolve, 5000));
         const response = await fetch(`http://pi.de:3000/sensor`,
             {
-                next: {
-                    revalidate: 60,
-                }
+                cache: "no-store",
             });
 
         if (!response.ok) {

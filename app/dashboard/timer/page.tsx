@@ -1,12 +1,11 @@
 "use client";
 
 import {CountdownCircleTimer} from "react-countdown-circle-timer";
-import {SetStateAction, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {timerSocket} from "@/app/socket";
 import {DurationRadioGroup, durations} from "@/app/dashboard/timer/(components)/DurationRadioGroup";
 import {Transition} from "@headlessui/react";
 import {LoadingSpinner} from "@/components/LoadingSpinner";
-import arg from "arg";
 
 const children = ({remainingTime}) => {
     const remainingDate = new Date((remainingTime || 0) * 1000);
@@ -135,8 +134,8 @@ export default function Timer() {
                 </div>
             )}
             <div className={"relative"}>
-                <Transition show={isPlaying}
-                            className={"absolute"}
+                <Transition as="div"
+                            show={isPlaying}
                             enter="transition-opacity ease-linear duration-300"
                             enterFrom="opacity-0"
                             enterTo="opacity-100"
@@ -155,7 +154,8 @@ export default function Timer() {
                             className={"text-3xl font-medium"}>{children({remainingTime})}</span>}
                     </CountdownCircleTimer>
                 </Transition>
-                <Transition show={!isPlaying}
+                <Transition as="div"
+                            show={!isPlaying}
                             enter="transition-opacity ease-linear duration-300"
                             enterFrom="opacity-0"
                             enterTo="opacity-100"

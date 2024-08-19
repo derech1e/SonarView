@@ -5,7 +5,7 @@ export default async function CronPage() {
     // await new Promise(resolve => setTimeout(resolve, 5000));
     const request = await fetch(`${process.env.BACKEND_URL}/scheduler/jobs`, {
         next: {
-            revalidate: 30,
+            revalidate: 10,
             tags: ["scheduler"],
         }
     });
