@@ -39,7 +39,7 @@ export default function EditCronComponent({data}) {
     return (
         <form className={"flex flex-col w-full mt-4 gap-4 space-between"} action={formAction}>
             <InputField id={"id"} label={"ID"} name={"id"} required={false} defaultValue={data._id} type={"text"} readOnly={true} aria-disabled={true}/>
-            <label htmlFor={"headlessui-listbox-button-:rb:"} className="text-sm font-medium">
+            <label htmlFor={"headlessui-listbox-button-:rb:"} className="text-sm font-medium dark:text-dark-text">
                 Weekdays<span className="text-red-500">*</span>
             </label>
             <DayDropSelector selectedDays={weekDays.filter((day) => data.dayOfWeek.includes(day.name))}/>

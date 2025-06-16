@@ -38,7 +38,7 @@ export function ChartView({data}) {
         return (data.sort((i1, i2) => new Date(i1.datetime).getTime() - new Date(i2.datetime).getTime()).map((item) => {
             return {
                 datetime: item.datetime,
-                percent: new CalculationHelper(item.distance / 10 ?? 0).asPercent(),
+                percent: new CalculationHelper((item.distance ?? 0) / 10).asPercent(),
                 // distance: item.distance / 10,
             }
         }))

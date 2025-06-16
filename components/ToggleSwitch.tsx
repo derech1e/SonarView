@@ -25,13 +25,13 @@ export function ToggleSwitch({isActive, id}) {
                 });
             }}
             className={`${
-                enabled ? 'bg-red-600' : 'bg-gray-200'
-            } relative inline-flex h-6 w-11 items-center rounded-full mb-0.5`}
+                enabled ? 'bg-red-600' : 'bg-gray-200 dark:bg-dark-accent'
+            } relative inline-flex h-6 w-11 items-center rounded-full mb-0.5 cursor-pointer`}
         >
             <span
                 className={`${
                     enabled ? 'translate-x-6' : 'translate-x-1'
-                } inline-block h-4 w-4 transform rounded-full bg-white transition`}
+                } inline-block h-4 w-4 transform rounded-full bg-white transition cursor-pointer`}
             />
         </Switch>
     )

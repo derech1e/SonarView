@@ -2,7 +2,7 @@
 import {SmallBox} from "@/components/SmallBox";
 import {MediumBox} from "@/components/MediumBox";
 import {useEffect, useState} from "react";
-import {sonarSocket, timerSocket} from "@/app/socket";
+import {sonarSocket} from "@/app/socket";
 import {CalculationHelper} from "@/utils/CalculationHelper";
 import {SensorData} from "@/utils/interface/SensorData";
 import {formatTimeAgo} from "@/utils/RelativeTimerHelper";
@@ -17,7 +17,7 @@ export default function SonarPage() {
     const distanceAverage = () => {
         if(data.length == 0)
             return undefined
-        return data.reduce((acc, curr) => (acc ?? 0) + (curr.distance / 10 ?? 0), 0) / data.length;
+        return data.reduce((acc, curr) => (acc ?? 0) + ((curr.distance ?? 0) / 10), 0) / data.length;
     }
 
     useEffect(() => {
@@ -36,7 +36,7 @@ export default function SonarPage() {
         }
 
         function onSensorDataEvent(newData) {
-            if(data.length >= 99) {
+            if (data.length >= 99) {
                 sonarSocket.disconnect();
             }
             setData((prevData) => [...prevData, newData]);
@@ -60,22 +60,23 @@ export default function SonarPage() {
     }, [router]);
 
     return (
-        <div className={"flex flex-col items-center justify-center w-full"}>
+        <div className="flex flex-col items-center justify-center w-full">
             <div className="flex flex-col text-start w-full gap-2">
-                <h1 className="font-medium text-xl dark:text-white">🎉
-                    Sonar measurements are being taken</h1>
-                <p className="text-sm text-gray-600 dark:text-dark-text">Like, lots and lots of data. So many data!</p>
+                <h1 className="font-medium text-xl text-black dark:text-white">🎉 Sonar measurements are being taken</h1>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Like, lots and lots of data. So many data!</p>
             </div>
-
             <button
-                className="p-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-red-500 self-start mt-2 disabled:bg-red-300"
-                disabled={isConnected} onClick={async () => {
-                setData([]);
-                setIsConnected(true);
-                setTimeout(() => {
-                    sonarSocket.connect();
-                }, 1000);
-            }}>Execute
+                className="p-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-red-500 self-start mt-2 disabled:bg-red-300 hover:cursor-pointer"
+                disabled={isConnected}
+                onClick={async () => {
+                    setData([]);
+                    setIsConnected(true);
+                    setTimeout(() => {
+                        sonarSocket.connect();
+                    }, 1000);
+                }}
+            >
+                Execute
             </button>
 
             <div className={"flex flex-row w-full mt-4 gap-4 space-between"}>
@@ -97,7 +98,7 @@ export default function SonarPage() {
 
             <div className={"md:flex md:flex-row grid grid-cols-2 w-full mt-4 gap-4 space-between"}>
                 <SmallBox heading={"Distance"} subheading={"in cm"}
-                          value={data[data.length -1]?.distance / 10 ?? "NaN"}/>
+                          value={(data[data.length - 1]?.distance ?? "NaN") / 10}/>
                 <SmallBox heading={"Volume"} subheading={"in L"}
                           value={new CalculationHelper(distanceAverage()).getVolumeInLiters()}/>
                 <SmallBox heading={"Max Volume"} subheading={"in L"}

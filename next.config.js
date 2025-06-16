@@ -1,15 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    experimental: {
-        turbo: {
-            rules: {
-                '*.svg': {
-                    loaders: ['@svgr/webpack'],
-                    as: '*.js',
-                },
-            },
-        },
-    },
     webpack: (config, options) => {
         config.externals.push({
             "bufferutil": "bufferutil",
@@ -22,6 +12,14 @@ const nextConfig = {
         fetches: {
             fullUrl: true,
         }
+    },
+    turbopack: {
+        rules: {
+            '*.svg': {
+                loaders: ['@svgr/webpack'],
+                as: '*.js',
+            },
+        },
     }
 }
 

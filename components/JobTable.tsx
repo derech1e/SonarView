@@ -27,7 +27,7 @@ export function JobTable({initialData}) {
                         initialData.length > 0 && initialData.map((job) => {
                             return (
                                 <tr key={job._id}>
-                                    <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8 hidden sm:block">
+                                    <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6 lg:pl-8 hidden sm:block">
                                         <Link className="flex grow hover:underline"
                                               href={`/dashboard/cron/${job._id}`}>{job._id}</Link>
                                     </td>

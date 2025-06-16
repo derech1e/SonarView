@@ -117,55 +117,36 @@ export default async function Logs() {
     return (
         <div className="w-full max-w-3xl mx-auto">
             <div className="relative w-full overflow-auto">
-                <table className="w-full caption-bottom text-sm">
-                    <thead className="[&amp;_tr]:border-b">
-                    <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                        <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                            Date
-                        </th>
-                        <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                            Module
-                        </th>
-                        <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                            Action
-                        </th>
-                        <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                            Status
-                        </th>
-                        <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                            Details
-                        </th>
+                <table className="w-full caption-bottom text-sm bg-white dark:bg-dark">
+                    <thead className="[&>tr]:border-b border-gray-200 dark:bg-dark-accent">
+                    <tr className="border-b transition-colors hover:bg-gray-50 dark:hover:bg-dark-accent data-[state=selected]:bg-muted">
+                        <th className="h-12 px-4 text-left align-middle font-medium text-gray-700 dark:text-gray-300">Date</th>
+                        <th className="h-12 px-4 text-left align-middle font-medium text-gray-700 dark:text-gray-300">Module</th>
+                        <th className="h-12 px-4 text-left align-middle font-medium text-gray-700 dark:text-gray-300">Action</th>
+                        <th className="h-12 px-4 text-left align-middle font-medium text-gray-700 dark:text-gray-300">Status</th>
+                        <th className="h-12 px-4 text-left align-middle font-medium text-gray-700 dark:text-gray-300">Details</th>
                     </tr>
                     </thead>
-                    <tbody className="[&amp;_tr:last-child]:border-0">
-                    {
-                        data.map((item, idx) => {
-                            return (
-                                <tr key={idx}
-                                    className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                                    <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-                                        <time className="text-sm font-medium text-gray-500 dark:text-gray-400"
-                                              dateTime={item.createdAt}>
-                                            {item.createdAt}
-                                        </time>
-                                    </td>
-                                    <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{item.module}</td>
-                                    <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{item.action}</td>
-                                    <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-                                        {
-                                            logTypComponent(item.logTyp)
-                                        }
-                                    </td>
-                                    <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-                                        {item.message}
-                                    </td>
-                                </tr>
-                            );
-                        })
-                    }
+                    <tbody className="[&>tr:last-child]:border-0">
+                    {data.map((item, idx) => (
+                        <tr
+                            key={idx}
+                            className="border-b border-gray-200 dark:border-dark-accent transition-colors hover:bg-gray-50 dark:hover:bg-dark-accent"
+                        >
+                            <td className="p-4 align-middle">
+                                <time className="text-sm font-medium text-gray-500 dark:text-gray-400" dateTime={item.createdAt}>
+                                    {item.createdAt}
+                                </time>
+                            </td>
+                            <td className="p-4 align-middle dark:text-dark-text">{item.module}</td>
+                            <td className="p-4 align-middle dark:text-dark-text">{item.action}</td>
+                            <td className="p-4 align-middle dark:text-dark-text">{logTypComponent(item.logTyp)}</td>
+                            <td className="p-4 align-middle dark:text-dark-text">{item.message}</td>
+                        </tr>
+                    ))}
                     </tbody>
                 </table>
             </div>
         </div>
-    )
+    );
 }

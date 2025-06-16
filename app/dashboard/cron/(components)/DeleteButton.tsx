@@ -13,7 +13,7 @@ export function DeleteButton({id}) {
     return (
         <form action={handleDelete}>
             <button type={"submit"}
-                    className="text-red-600 hover:text-red-900 p-1 focus:outline-red-500">
+                    className="text-red-600 hover:text-red-900 p-1 focus:outline-red-500 cursor-pointer">
                 Delete
             </button>
         </form>

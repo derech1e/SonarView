@@ -17,10 +17,10 @@ module.exports = {
                     'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
             },
             colors: {
-                'dark': '#181A1B',
+                'thomas1': '#181A1B',
                 'dark-accent': '#2F3335',
                 'dark-text': '#B1AAA0',
-            }
+            },
         },
-    }
+    },
 }

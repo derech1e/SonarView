@@ -1,6 +1,6 @@
 export default function LoadingRouteComponent() {
     return (
-        <div className="order-last w-full md:order-none md:ml-16 p-6 overflow-hidden">
+        <div className="order-last w-full md:order-0 md:ml-16 p-6 overflow-hidden">
             <div className="flex top-0 right-0 pt-32 w-full items-center justify-center">
                 <div role="status">
                     <svg aria-hidden="true" className="mr-2 text-gray-200 animate-spin dark:text-gray-400 fill-red-600"

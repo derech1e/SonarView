@@ -49,7 +49,7 @@ export default function DialogPopup({initValues, onClose}: {
 
                                 <Dialog.Title
                                     as="h3"
-                                    className="text-lg font-medium leading-6 text-gray-900">
+                                    className="text-lg font-medium leading-6 text-gray-900 dark:text-white">
                                     {state.title}
                                 </Dialog.Title>
 

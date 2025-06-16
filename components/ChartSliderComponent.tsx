@@ -17,7 +17,7 @@ export function ChartSliderComponent() {
             </div>
             <div className={"flex flex-row items-center justify-between w-full"}>
                 <label htmlFor={"rangeSlider"}
-                       className={"whitespace-nowrap mr-5 block w-8"}>{displayRange} h</label>
+                       className={"whitespace-nowrap mr-5 block w-8 dark:text-white"}>{displayRange} h</label>
                 <input id={"rangeSlider"}
                        className={"w-full h-2 range-lg bg-gray-200 rounded-lg appearance-none cursor-pointer accent-red-600"}
                        type={"range"} min={1} max={168} defaultValue={displayRange}

@@ -87,32 +87,31 @@ export default function Timer() {
     }
 
     return (
-        <div className={"flex flex-col w-full"}>
+        <div className="flex flex-col w-full">
             <div className="flex flex-col text-start w-full gap-2">
-                <h1 className="font-medium text-xl dark:text-white">Overview</h1>
-                <p className="text-sm text-gray-600 dark:text-dark-text">View and manage the Cistern!{isConnected}</p>
+                <h1 className="font-medium text-xl text-black dark:text-white">Overview</h1>
+                <p className="text-sm text-gray-600 dark:text-gray-400">View and manage the Cistern!{isConnected}</p>
             </div>
-
-            <div className="flex flex-col w-full gap-2 p-4 bg-gray-100 rounded-lg mt-6 dark:bg-dark-accent">
+            <div className="flex flex-col w-full gap-2 p-4 bg-gray-100 dark:bg-dark-accent rounded-lg mt-6">
                 <div className="flex flex-row items-center justify-between">
                     <div className="flex flex-col text-start w-full gap-2">
-                        <h1 className="font-medium text-xl dark:text-white">Timer Control</h1>
-                        <p className="text-sm text-gray-600 dark:text-dark-text">Start and Stop the timer for the
-                            cistern</p>
+                        <h1 className="font-medium text-xl text-black dark:text-white">Timer Control</h1>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Start and Stop the timer for the cistern</p>
                     </div>
-                    <div className={"inline-flex items-center gap-2"}>
-                        {isLoading &&
-                            <LoadingSpinner size={32}/>}
+                    <div className="inline-flex items-center gap-2">
+                        {isLoading && <LoadingSpinner size={32} />}
                         <button
                             disabled={isPlaying}
-                            className={`px-8 py-4 text-sm font-medium rounded-md disabled:opacity-60 disabled:cursor-not-allowed ${!isPlaying ? outlinedClassName : filledClassName}`}
-                            onClick={handleTimerStart}>
+                            className={`px-8 py-4 text-sm font-medium rounded-md disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer ${!isPlaying ? outlinedClassName : filledClassName}`}
+                            onClick={handleTimerStart}
+                        >
                             Start
                         </button>
                         <button
                             disabled={!isPlaying}
-                            className={`px-8 py-4 text-sm font-medium rounded-md disabled:opacity-60 disabled:cursor-not-allowed ${isPlaying ? outlinedClassName : filledClassName}`}
-                            onClick={handleTimerStop}>
+                            className={`px-8 py-4 text-sm font-medium rounded-md disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer ${isPlaying ? outlinedClassName : filledClassName}`}
+                            onClick={handleTimerStop}
+                        >
                             Stop
                         </button>
                     </div>
