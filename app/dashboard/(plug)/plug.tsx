@@ -1,22 +1,23 @@
 import {PlugSwitch} from "@/components/PlugSwitch";
-import {use} from "react"
 
-export function PlugControl() {
+export const dynamic = 'force-dynamic';
 
-    async function getPlugStatus() {
-        const response = await fetch("http://pi.de:3000/plug/status", {
-            headers: {
-                cache: "no-store",
-            }
-        });
-        if (!response.ok) {
-            return Promise.reject("Failed to fetch (plug) status");
+async function getPlugStatus() {
+    const response = await fetch("http://pi.de:3000/plug/status", {
+        cache: "no-store", // Correct placement
+        headers: {
+            cache: "no-store",
         }
-        return await response.json();
+    });
+    if (!response.ok) {
+        return Promise.reject("Failed to fetch (plug) status");
     }
+    return await response.json();
+}
 
+export default async function PlugControl() {
 
-    const plugStatus = use(getPlugStatus().catch(() => null));
+    const plugStatus = await getPlugStatus();
 
     if (plugStatus == null) {
         return (

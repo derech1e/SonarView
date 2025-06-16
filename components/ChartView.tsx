@@ -39,7 +39,7 @@ export function ChartView({data}) {
             return {
                 datetime: item.datetime,
                 percent: new CalculationHelper(item.distance / 10 ?? 0).asPercent(),
-                distance: item.distance / 10,
+                // distance: item.distance / 10,
             }
         }))
             .filter(item => +item.percent > 0)
@@ -49,7 +49,7 @@ export function ChartView({data}) {
                     return {
                         ...item,
                         percent: 105,
-                        distance: item.distance,
+                        // distance: item.distance,
                     }
                 }
                 return item;
